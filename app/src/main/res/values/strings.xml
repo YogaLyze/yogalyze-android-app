@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">YogaLyze</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="yoga">Yoga</string>
+    <string name="lyze">Lyze</string>
+    <string name="welcome_text">Enhance your well-being and embrace balance through yoga</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="login_to_your_account">Login to your account</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="forget_password">Forget password?</string>
+    <string name="dont_have_an_account">Don\'t have an account?\u0020</string>
+    <string name="email">Email</string>
+    <string name="create_your_new_account">Create your new account</string>
+    <string name="already_have_an_account">Already have an account?\u0020</string>
+    <string name="hello">Hello,\u0020</string>
+    <string name="user_nick_name">Dewa</string>
+    <string name="user_name">Dewa Ranggana</string>
+    <string name="user_email">rangganadewa@gmail.com</string>
+    <string name="have_a_calm_and_peaceful_day">Have a calm and peaceful day!</string>
+    <string name="how_yogalyze_works">How YogaLyze Works?</string>
+    <string name="watch_a_small_video_about_how_this_app_helps_you_to_stay_fit">Watch a small video about how this app helps you to stay fit</string>
+    <string name="continues">Continue</string>
+    <string name="type_of_yoga">Back Pain Relief</string>
+    <string name="time">10 Min</string>
+    <string name="yoga_options">Yoga Options</string>
+    <string name="title_history">History</string>
+    <string name="title_profile">Profile</string>
+    <string name="your_exercise_history">Your Exercise History</string>
+    <string name="date">30, Apr 2023</string>
+    <string name="accuracy">90% Accuracy</string>
+    <string name="initial">D</string>
+    <string name="user_since">User since\u0020</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="edit_and_manage_your_personal_information">Edit and manage your personal information</string>
+    <string name="set_workout_notification">Set Workout Notification</string>
+    <string name="receive_reminders_set_by_you_so_you_never_forget_to_practise_yoga">Receive reminders set by you so you never forget to practise yoga</string>
+    <string name="about_us">About Us</string>
+    <string name="logout">Logout</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="description">Description</string>
+    <string name="asanas">Asanas</string>
+    <string name="yoga_pose">Cat pose</string>
+    <string name="shiva_samhita">Marjaryasana</string>
+    <string name="back">Back</string>
+    <string name="title_activity_about_ua">AboutUaActivity</string>
+    <string name="about_us_paragraph">This yoga app that will allow users to practice yoga while receiving feedback on their movements through the use of computer vision technology. With this app, users can perform yoga poses independently, and their phone\'s camera will detect how good their movements are. In addition, the app offers a variety of yoga routines designed to meet specific needs, such as back pain or stress reduction.\n\nOur motivation for creating this app stems from the desire to make yoga more accessible to those who are intimidated by it. Often, we hear family members express interest in trying yoga but are hesitant to do so without guidance from a teacher and have no time to search for it or schedule a session. We believe that yoga can benefit both physical and mental health, and it would be a shame for people to miss out on these benefits due to fear of practicing alone.\n\nOur hope is that by using our app, people will be more inclined to try yoga and live a healthier lifestyle.</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
+        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
+        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
+        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
+        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
+        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
+        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
+        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
+        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
+        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
+        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
+        bibendum, vel congue leo egestas.\n\n
+        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
+        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
+        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
+        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
+        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
+        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
+        est.\n\n
+        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
+        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
+        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
+        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
+        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
+        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
+        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
+        convallis.\n\n
+        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
+        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
+        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
+        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
+        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
+        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
+        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
+    </string>
+    <string name="age">Age</string>
+    <string name="enter_age">Enter age</string>
+    <string name="gender">Gender</string>
+    <string name="enter_gender">Enter gender</string>
+    <string name="enter_height">Enter height</string>
+    <string name="height">Height</string>
+    <string name="width">Width</string>
+    <string name="enter_width">Enter width</string>
+    <string name="change">Change</string>
+    <string name="save">Save</string>
+    <string name="user_accuracy">90%</string>
+    <string name="timer">Timer</string>
+    <string name="timer_number">5</string>
+    <string name="you_can_read_about_us_here">You can read about us here</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="Minutes">\u0020Min</string>
+    <string name="sec">\u0020Sec</string>
+</resources>

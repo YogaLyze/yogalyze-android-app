@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    android:layout_marginBottom="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8sp"
+        android:layout_marginEnd="8sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp" >
+
+        <ImageView
+            android:id="@+id/poseImage"
+            android:layout_width="100dp"
+            android:layout_height="64dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/cat_pose" />
+
+        <TextView
+            android:id="@+id/poseName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/poseImage"
+            app:layout_constraintBottom_toBottomOf="@+id/poseImage"
+            app:layout_constraintStart_toEndOf="@id/poseImage"
+            android:text="@string/yoga_pose"
+            android:layout_marginStart="20dp"
+            android:textSize="12sp"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/font_black"/>
+
+        <TextView
+            android:id="@+id/poseShanskritName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/poseImage"
+            app:layout_constraintBottom_toTopOf="@+id/poseName"
+            app:layout_constraintStart_toEndOf="@id/poseImage"
+            android:text="@string/shiva_samhita"
+            android:layout_marginStart="20dp"
+            android:textSize="10sp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/grey"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/poseImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/poseImage"
+            app:layout_constraintTop_toBottomOf="@+id/poseName"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/time_circle_grey"
+                android:layout_marginEnd="4dp"/>
+
+            <TextView
+                android:id="@+id/poseDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/grey"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/sec"
+                android:textColor="@color/grey"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="right"
+            android:background="@drawable/button_right_circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

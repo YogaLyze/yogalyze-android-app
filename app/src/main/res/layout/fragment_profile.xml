@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.profile.ProfileFragment"
+    android:background="@color/white_backgroud">
+
+    <FrameLayout
+        android:id="@+id/initial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/profile_img"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/initialTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/initial"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/font_black"
+            android:textSize="60sp"
+            android:textAlignment="center"/>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="@string/user_name"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/font_black"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/initial"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/emailTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="@string/user_email"
+        android:fontFamily="@font/poppins_light"
+        android:textColor="@color/font_black"
+        android:textSize="14sp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/nameTextView"
+        android:layout_marginTop="4dp"/>
+
+    <TextView
+        android:id="@+id/tv_user_since"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="@string/user_since"
+        android:fontFamily="@font/poppins_light"
+        android:textColor="@color/grey"
+        android:textSize="12sp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/emailTextView"
+        app:layout_constraintStart_toStartOf="@id/initial"
+        app:layout_constraintEnd_toStartOf="@id/sinceDateTextView"
+        android:layout_marginTop="4dp"/>
+
+    <TextView
+        android:id="@+id/sinceDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="@string/date"
+        android:fontFamily="@font/poppins_light"
+        android:textColor="@color/grey"
+        android:textSize="12sp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/emailTextView"
+        app:layout_constraintStart_toEndOf="@id/tv_user_since"
+        app:layout_constraintEnd_toEndOf="@id/initial"
+        android:layout_marginTop="4dp" />
+
+    <FrameLayout
+        android:id="@+id/personal_information"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_user_since"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:background="@drawable/green_bg" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/personal_information"
+            android:textColor="@color/font_black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="48dp"
+            android:fontFamily="@font/poppins_light"
+            android:text="@string/edit_and_manage_your_personal_information"
+            android:textColor="@color/font_black"
+            android:textSize="12sp"/>
+
+        <ImageButton
+            android:id="@+id/personalInformationButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/button_right_circle"
+            android:layout_gravity="right"
+            android:importantForAccessibility="no" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/set_workout_notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/personal_information"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:background="@drawable/green_bg" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/set_workout_notification"
+            android:textColor="@color/font_black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/poppins_light"
+            android:text="@string/receive_reminders_set_by_you_so_you_never_forget_to_practise_yoga"
+            android:textColor="@color/font_black"
+            android:textSize="12sp"/>
+
+        <ImageButton
+            android:id="@+id/notificationButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/button_right_circle"
+            android:layout_gravity="right"
+            android:importantForAccessibility="no" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/about_us"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/set_workout_notification"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:background="@drawable/green_bg" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/about_us"
+            android:textColor="@color/font_black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="48dp"
+            android:fontFamily="@font/poppins_light"
+            android:text="@string/you_can_read_about_us_here"
+            android:textColor="@color/font_black"
+            android:textSize="12sp"/>
+
+        <ImageView
+            android:id="@+id/aboutUsButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/button_right_circle"
+            android:layout_gravity="right"/>
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/about_us"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/logout"
+        android:textSize="16sp"
+        android:textColor="@color/font_black"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:textAllCaps="false"
+        android:backgroundTint="#F1F0F0"/>
+
+    <Button
+        android:id="@+id/deleteAccountButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/logoutButton"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/delete_account"
+        android:textSize="16sp"
+        android:textColor="@color/font_black"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:textAllCaps="false"
+        android:backgroundTint="#F9F8F8"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
