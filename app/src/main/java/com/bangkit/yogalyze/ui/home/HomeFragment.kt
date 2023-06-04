@@ -26,6 +26,7 @@ import com.bangkit.yogalyze.model.Yoga
 import com.bangkit.yogalyze.model.YogaData
 import com.bangkit.yogalyze.ui.yoga_detail.YogaDetailActivity
 import com.bangkit.yogalyze.ui.yogalyze_video.YogalyzeVideoActivity
+import com.google.firebase.auth.FirebaseAuth
 
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "data")
@@ -38,6 +39,8 @@ class HomeFragment : Fragment() {
     private val homeViewModel by viewModels<HomeViewModel> {
         HomeViewModel.homeViewModelFactory(UserPreference.getInstance(requireContext().dataStore))
     }
+
+    var firebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,6 +69,8 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireActivity(), YogalyzeVideoActivity::class.java)
             startActivity(intent)
         }
+
+        binding.userNameTextView.text = firebaseAuth.currentUser!!.displayName
 
         return root
     }

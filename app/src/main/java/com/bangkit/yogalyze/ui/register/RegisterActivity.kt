@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import com.bangkit.yogalyze.R
 import com.bangkit.yogalyze.databinding.ActivityRegisterBinding
 import com.bangkit.yogalyze.ui.login.LoginActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 

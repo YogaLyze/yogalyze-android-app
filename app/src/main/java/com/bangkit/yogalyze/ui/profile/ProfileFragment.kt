@@ -18,10 +18,13 @@ import com.bangkit.yogalyze.databinding.FragmentProfileBinding
 import com.bangkit.yogalyze.ui.about_us.AboutUsActivity
 import com.bangkit.yogalyze.ui.login.LoginActivity
 import com.bangkit.yogalyze.ui.personal_information.PersonalInformationActivity
+import com.google.firebase.auth.FirebaseAuth
 
 
 @Suppress("UNREACHABLE_CODE")
 class ProfileFragment : Fragment(), View.OnClickListener {
+
+    val firebaseAuth = FirebaseAuth.getInstance()
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
@@ -44,6 +47,10 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         binding.logoutButton.setOnClickListener(this)
         binding.deleteAccountButton.setOnClickListener(this)
 
+        binding.nameTextView.text = firebaseAuth.currentUser!!.displayName
+        binding.emailTextView.text = firebaseAuth.currentUser!!.email
+        binding.sinceDateTextView.text = firebaseAuth.currentUser!!.metadata!!.creationTimestamp.toString()
+
         return root
     }
 
@@ -63,6 +70,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.deleteAccountButton -> {
+                profileViewModel.delete()
                 val intent = Intent(requireActivity(), LoginActivity::class.java)
                 startActivity(intent)
             }
