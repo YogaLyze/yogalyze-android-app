@@ -9,19 +9,25 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bangkit.yogalyze.R
 import com.bangkit.yogalyze.databinding.ActivityCameraBinding
 import com.bangkit.yogalyze.ui.yoga_detail.YogaDetailActivity
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 class CameraActivity : AppCompatActivity() {
 
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private lateinit var binding : ActivityCameraBinding
+    private lateinit var cameraExecutor: ExecutorService
+    private var imageCapture : ImageCapture? = null
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -61,9 +67,12 @@ class CameraActivity : AppCompatActivity() {
             )
         }
 
+        cameraExecutor = Executors.newSingleThreadExecutor()
+
         binding.poseImageView.setImageResource(intent.getIntExtra(EXTRA_IMAGE, 0))
         cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
         startCamera()
+
     }
 
     private fun startCamera() {
@@ -78,12 +87,17 @@ class CameraActivity : AppCompatActivity() {
                     it.setSurfaceProvider(binding.camera.surfaceProvider)
                 }
 
+            imageCapture = ImageCapture.Builder()
+                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                .build()
+
             try {
                 cameraProvider.unbindAll()
                 cameraProvider.bindToLifecycle(
                     this,
                     cameraSelector,
-                    preview
+                    preview,
+                    imageCapture
                 )
             } catch (exc: Exception) {
                 Toast.makeText(
