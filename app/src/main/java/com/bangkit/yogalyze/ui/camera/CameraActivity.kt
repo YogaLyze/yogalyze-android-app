@@ -28,6 +28,7 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var binding : ActivityCameraBinding
     private lateinit var cameraExecutor: ExecutorService
     private var imageCapture : ImageCapture? = null
+    private var imageAnalyzer: ImageAnalysis? = null
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -90,6 +91,12 @@ class CameraActivity : AppCompatActivity() {
             imageCapture = ImageCapture.Builder()
                 .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
                 .build()
+
+            imageAnalyzer = ImageAnalysis.Builder()
+                .build()
+                .also {
+                    it.setAnalyzer(cameraExecutor, ObjectDetectorAnalyzer())
+                }
 
             try {
                 cameraProvider.unbindAll()

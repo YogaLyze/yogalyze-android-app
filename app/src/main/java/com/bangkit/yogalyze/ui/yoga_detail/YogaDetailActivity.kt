@@ -1,5 +1,6 @@
 package com.bangkit.yogalyze.ui.yoga_detail
 
+
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import com.bangkit.yogalyze.model.PoseData
 import com.bangkit.yogalyze.model.Yoga
 import com.bangkit.yogalyze.model.YogaData
 import com.bangkit.yogalyze.ui.camera.CameraActivity
+
 
 class YogaDetailActivity : AppCompatActivity() {
 
