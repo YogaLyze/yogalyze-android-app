@@ -50,7 +50,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.loginButton.setOnClickListener(this)
         binding.loginWithGoogleButton.setOnClickListener(this)
-        binding.loginWithFacebookButton.setOnClickListener(this)
         binding.forgetPasswordTextView.setOnClickListener(this)
         binding.registerTextView.setOnClickListener(this)
 
@@ -83,7 +82,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             val idToken = task.result.token
-                            loginViewModel.saveToken(idToken.toString())
+                            loginViewModel.saveToken("Bearer $idToken")
+                            Log.d("CekToken", "Bearer $idToken")
 
                             val intent = Intent(this, MainActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

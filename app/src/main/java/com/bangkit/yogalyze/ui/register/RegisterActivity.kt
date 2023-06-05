@@ -38,7 +38,6 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         setupViewModel()
 
         binding.registerButton.setOnClickListener(this)
-        binding.registerWithFacebookButton.setOnClickListener(this)
         binding.registerWithGoogleButton.setOnClickListener(this)
         binding.loginTextView.setOnClickListener(this)
 

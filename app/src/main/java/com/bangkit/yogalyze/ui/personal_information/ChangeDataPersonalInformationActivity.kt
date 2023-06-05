@@ -14,20 +14,21 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.Observer
-import com.bangkit.yogalyze.MainActivity
 import com.bangkit.yogalyze.R
 import com.bangkit.yogalyze.UserPreference
-import com.bangkit.yogalyze.databinding.ActivityLoginBinding
-import com.bangkit.yogalyze.databinding.ActivityPersonalInformationBinding
-import com.bangkit.yogalyze.ui.profile.ProfileFragment
+import com.bangkit.yogalyze.databinding.ActivityChangeDataPersonalInformationBinding
 import com.google.firebase.auth.FirebaseAuth
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "data")
 
-class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
+class ChangeDataPersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var binding : ActivityPersonalInformationBinding
+    private lateinit var binding : ActivityChangeDataPersonalInformationBinding
     private val firebaseAuth = FirebaseAuth.getInstance()
+    private var Age: Int? = 0
+    private var Gender: String? = null
+    private var Height: Double? = 0.0
+    private var Weight: Double? = 0.0
     private val personalInformationViewModel by viewModels<PersonalInformationViewModel> {
         PersonalInformationViewModel.personalInformationViewModelFactory(UserPreference.getInstance(dataStore))
     }
@@ -35,7 +36,7 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityPersonalInformationBinding.inflate(layoutInflater)
+        binding = ActivityChangeDataPersonalInformationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setupView()
@@ -44,7 +45,7 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
         binding.name.text = firebaseAuth.currentUser!!.displayName
         binding.email.text = firebaseAuth.currentUser!!.email
 
-        binding.changeData.setOnClickListener(this)
+        binding.saveData.setOnClickListener(this)
         binding.back.setOnClickListener(this)
     }
 
@@ -61,13 +62,12 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
             }
         })
 
-        personalInformationViewModel.getToken().observe(this){
-            personalInformationViewModel.getData(it)
-            personalInformationViewModel.userData.observe(this){
-                binding.age.text = it.age.toString()
-                binding.weight.text = it.weight.toString()
-                binding.height.text = it.height.toString()
-                binding.gender.text = it.gender.toString()
+        personalInformationViewModel.isSaved.observe(this){
+            if (it == true){
+                val intent = Intent(this, PersonalInformationActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
             }
         }
     }
@@ -87,19 +87,19 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when(v.id) {
-            R.id.changeData -> {
-                val intent = Intent(this, ChangeDataPersonalInformationActivity::class.java)
-                startActivity(intent)
+            R.id.saveData -> {
+                Age = binding.age.text.toString().toInt()
+                Gender = binding.gender.text.toString()
+                Height = binding.height.text.toString().toDouble()
+                Weight = binding.height.text.toString().toDouble()
+
+                personalInformationViewModel.getToken().observe(this){
+                    personalInformationViewModel.saveData(it.toString(), Age, Gender, Height, Weight)
+                }
             }
             R.id.back -> {
-                // Navigasi dari Activity ke Fragment menggunakan FragmentManager dan FragmentTransaction
-                val fragmentManager = supportFragmentManager
-                val fragmentTransaction = fragmentManager.beginTransaction()
-                val fragment = ProfileFragment()
-
-                // Menambahkan Fragment ke container di dalam Activity
-                fragmentTransaction.add(R.id.container, fragment)
-                fragmentTransaction.commit()
+                val intent = Intent(this, PersonalInformationActivity::class.java)
+                startActivity(intent)
             }
         }
     }

@@ -19,8 +19,17 @@
         android:theme="@style/Theme.YogaLyze"
         tools:targetApi="31">
         <activity
+            android:name=".ui.reset_password.ResetPasswordSuccessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.reset_password.ResetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.personal_information.ChangeDataPesonalInformationActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.yogalyze_video.YogalyzeVideoActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.camera.CameraActivity"
             android:exported="true"

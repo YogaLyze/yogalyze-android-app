@@ -43,7 +43,7 @@
             android:layout_marginEnd="24dp"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
-            android:text="@string/personal_information"
+            android:text="Change Data"
             android:textColor="@color/font_black"
             android:textSize="18sp" />
 
@@ -139,7 +139,7 @@
                     android:textColor="@color/font_black"
                     android:textSize="12sp" />
 
-                <TextView
+                <EditText
                     android:id="@+id/age"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -147,9 +147,9 @@
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/poppins_light"
                     android:gravity="right"
+                    android:hint="@string/enter_age"
                     android:textColor="@color/font_black"
                     android:textSize="12sp"
-                    android:text="0"
                     android:visibility="visible" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -176,7 +176,7 @@
                     android:textColor="@color/font_black"
                     android:textSize="12sp" />
 
-                <TextView
+                <EditText
                     android:id="@+id/gender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -184,7 +184,7 @@
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/poppins_light"
                     android:gravity="right"
-                    android:text="null"
+                    android:hint="@string/enter_gender"
                     android:textColor="@color/font_black"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -212,7 +212,7 @@
                     android:textColor="@color/font_black"
                     android:textSize="12sp" />
 
-                <TextView
+                <EditText
                     android:id="@+id/height"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -220,7 +220,7 @@
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/poppins_light"
                     android:gravity="right"
-                    android:text="0.0"
+                    android:hint="@string/enter_height"
                     android:textColor="@color/font_black"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -248,7 +248,7 @@
                     android:textColor="@color/font_black"
                     android:textSize="12sp" />
 
-                <TextView
+                <EditText
                     android:id="@+id/weight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -256,25 +256,24 @@
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/poppins_light"
                     android:gravity="right"
-                    android:text="0.0"
+                    android:hint="@string/enter_width"
                     android:textColor="@color/font_black"
                     android:textSize="12sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <Button
-            android:id="@+id/changeData"
+            android:id="@+id/saveData"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/button_bg_pink"
             android:fontFamily="@font/poppins_medium"
-            android:text="@string/change"
+            android:text="@string/save"
             android:textAllCaps="false"
             android:textSize="16sp"
             android:layout_marginTop="18dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:orientation="horizontal"
             android:layout_marginBottom="16dp"/>
     </LinearLayout>
 
