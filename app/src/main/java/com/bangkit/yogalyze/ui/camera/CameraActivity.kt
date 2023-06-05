@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bangkit.yogalyze.R
 import com.bangkit.yogalyze.databinding.ActivityCameraBinding
+import com.bangkit.yogalyze.ui.yoga_detail.YogaDetailActivity
 
 class CameraActivity : AppCompatActivity() {
 
@@ -60,6 +61,7 @@ class CameraActivity : AppCompatActivity() {
             )
         }
 
+        binding.poseImageView.setImageResource(intent.getIntExtra(EXTRA_IMAGE, 0))
         cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
         startCamera()
     }
@@ -110,5 +112,6 @@ class CameraActivity : AppCompatActivity() {
         const val CAMERA_X_RESULT = 200
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSIONS = 10
+        const val EXTRA_IMAGE = "extra_image"
     }
 }
