@@ -36,11 +36,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     val yogaAdapter = YogaAdapter(YogaData.yoga)
-    private val homeViewModel by viewModels<HomeViewModel> {
-        HomeViewModel.homeViewModelFactory(UserPreference.getInstance(requireContext().dataStore))
-    }
-
-    var firebaseAuth = FirebaseAuth.getInstance()
+    private val firebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,7 +47,6 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
         showYogaOptions()
-        setUpViewModel()
 
         binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -70,7 +65,7 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-        binding.userNameTextView.text = firebaseAuth.currentUser!!.displayName
+        binding.userNameTextView?.text = firebaseAuth?.currentUser?.displayName
 
         return root
     }
@@ -83,20 +78,6 @@ class HomeFragment : Fragment() {
         yogaAdapter.submitList(filteredList as ArrayList<Yoga>)
 
         binding.resultNotFoundTextView.visibility = if (filteredList.isEmpty()) View.VISIBLE else View.GONE
-    }
-
-    private fun setUpViewModel() {
-        homeViewModel.isLoading.observe(requireActivity()){
-            binding.progressBar.visibility = if (it.equals(true)) View.VISIBLE else View.GONE
-        }
-
-        homeViewModel.getToken().observe(requireActivity()){
-            homeViewModel.getUser(it.accessToken.toString())
-        }
-
-        homeViewModel.userData.observe(requireActivity()){
-            binding.userNameTextView.text = it.name
-        }
     }
 
     private fun showYogaOptions(){

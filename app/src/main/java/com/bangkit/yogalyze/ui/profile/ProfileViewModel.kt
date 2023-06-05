@@ -26,7 +26,6 @@ class ProfileViewModel(private val pref: UserPreference) : ViewModel() {
 
     fun logout() {
         firebaseAuth.signOut()
-
         viewModelScope.launch {
             pref.logout()
         }

@@ -23,42 +23,16 @@ class LoginViewModel (private val pref: UserPreference) : ViewModel(){
 
     var firebaseAuth = FirebaseAuth.getInstance()
 
-    private val _userToken = MutableLiveData<String>()
-    val userToken: LiveData<String> = _userToken
-
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _isLogin = MutableLiveData<Boolean>()
+    val isLogin: LiveData<Boolean> = _isLogin
 
     private val _statusMessage = MutableLiveData<Event<String>>()
     val statusMessage : LiveData<Event<String>> = _statusMessage
 
     fun login(email: String, password: String) {
-//        _isLoading.value = true
-//        val request = LoginRequest(email, password) // Create RegisterRequest object
-//        val client = ApiConfig.getApiService().login(request) // Pass RegisterRequest object
-//        client.enqueue(object : Callback<LoginResponse> {
-//            override fun onResponse(
-//                call: Call<LoginResponse>,
-//                response: Response<LoginResponse>
-//            ) {
-//                if (response.isSuccessful) {
-//                    _isLoading.value = false
-//                    _userToken.value= response.body()
-//                    _statusMessage.value = Event("Login successful")
-//                    viewModelScope.launch {
-//                        pref.login(userToken.value?.accessToken.toString())
-//                    }
-//                } else {
-//                    _isLoading.value = false
-//                    _statusMessage.value = Event("Login failed! Please ensure the email and password are valid.")
-//                    Log.d(TAG,response.toString())
-//                }
-//            }
-//            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-//                _isLoading.value = false
-//                Log.e(TAG, "onFailure: ${t.message}")
-//            }
-//        })
         _isLoading.value = true
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -66,11 +40,8 @@ class LoginViewModel (private val pref: UserPreference) : ViewModel(){
                     val user = task.result.user
                     if (user!!.isEmailVerified){
                         _isLoading.value = false
-                        _userToken.value = user.getIdToken(true).toString()
                         _statusMessage.value = Event("Login successful")
-                        viewModelScope.launch {
-                            pref.login(userToken.toString())
-                        }
+                        _isLogin.value = true
                     } else {
                         _isLoading.value = false
                         _statusMessage.value = Event("Login failed! Please ensure the email has been verified")
@@ -103,14 +74,17 @@ class LoginViewModel (private val pref: UserPreference) : ViewModel(){
             .addOnSuccessListener {
                 _isLoading.value = false
                 _statusMessage.value = Event("Login successful")
-                _userToken.value = idToken
-                viewModelScope.launch {
-                    pref.login(userToken.toString())
-                }
+                _isLogin.value = true
             }
             .addOnFailureListener {
                 _isLoading.value = false
             }
+    }
+
+    fun saveToken(token : String){
+        viewModelScope.launch {
+            pref.login(token)
+        }
     }
 
     class LoginViewModelFactory(private val pref : UserPreference) :

@@ -9,7 +9,7 @@ import com.bangkit.yogalyze.api.response.LoginResponse
 
 class MainViewModel (private var pref: UserPreference) : ViewModel() {
 
-    fun getToken(): LiveData<LoginResponse> {
+    fun getToken(): LiveData<String> {
         return pref.getToken().asLiveData()
     }
 

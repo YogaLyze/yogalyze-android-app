@@ -19,16 +19,18 @@ import com.bangkit.yogalyze.ui.about_us.AboutUsActivity
 import com.bangkit.yogalyze.ui.login.LoginActivity
 import com.bangkit.yogalyze.ui.personal_information.PersonalInformationActivity
 import com.google.firebase.auth.FirebaseAuth
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "data")
 
 @Suppress("UNREACHABLE_CODE")
 class ProfileFragment : Fragment(), View.OnClickListener {
 
-    val firebaseAuth = FirebaseAuth.getInstance()
-
+    private val firebaseAuth = FirebaseAuth.getInstance()
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "data")
     private val profileViewModel by viewModels<ProfileViewModel> {
         ProfileViewModel.ProfileViewModelFactory(UserPreference.getInstance(requireContext().dataStore))
     }
@@ -49,7 +51,13 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
         binding.nameTextView.text = firebaseAuth.currentUser!!.displayName
         binding.emailTextView.text = firebaseAuth.currentUser!!.email
-        binding.sinceDateTextView.text = firebaseAuth.currentUser!!.metadata!!.creationTimestamp.toString()
+        binding.initialTextView.text = firebaseAuth.currentUser!!.displayName!!.substring(0, 1)
+
+        val creationTimestamp = firebaseAuth.currentUser!!.metadata!!.creationTimestamp
+        val date = Date(creationTimestamp)
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val formattedDate = dateFormat.format(date)
+        binding.sinceDateTextView.text = formattedDate
 
         return root
     }

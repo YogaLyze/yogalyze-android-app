@@ -10,11 +10,9 @@ import kotlinx.coroutines.flow.map
 
 class UserPreference private constructor(private val dataStore: DataStore<Preferences>) {
 
-    fun getToken(): Flow<LoginResponse> {
-        return dataStore.data.map { preferences ->
-            LoginResponse(
-                preferences[TOKEN_KEY] ?: "",
-            )
+    fun getToken(): Flow<String> {
+        return dataStore.data.map{ preferences ->
+            preferences[TOKEN_KEY] ?: ""
         }
     }
 

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -31,14 +32,13 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
     private lateinit var email: String
     private lateinit var password: String
     private val loginViewModel by viewModels<LoginViewModel> {
         LoginViewModel.LoginViewModelFactory(UserPreference.getInstance(dataStore))
     }
-    var firebaseAuth = FirebaseAuth.getInstance()
-    lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +60,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             .build();
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
-
     }
 
     private fun setupViewModel() {
@@ -70,18 +69,31 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         loginViewModel.statusMessage.observe(this, Observer {
             it.getContentIfNotHandled().let {
-                if(it != null) {
+                if (it != null) {
                     Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
                 }
             }
         })
 
-        loginViewModel.userToken.observe(this){
-            if (it != null){
-                val intent = Intent(this, MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-                finish()
+        loginViewModel.isLogin.observe(this) {
+            if (it == true) {
+                var firebaseUser = FirebaseAuth.getInstance().currentUser
+
+                firebaseUser!!.getIdToken(true)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val idToken = task.result.token
+                            loginViewModel.saveToken(idToken.toString())
+
+                            val intent = Intent(this, MainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            startActivity(intent)
+                            finish()
+                        }
+                    }
+                    ?.addOnFailureListener { error ->
+                        Log.e("LoginActivity", error.message.toString())
+                    }
             }
         }
     }
@@ -100,7 +112,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-        when(v.id) {
+        when (v.id) {
             R.id.loginButton -> {
                 email = binding.emailEditText.text.toString()
                 password = binding.passwordEditText.text.toString()
@@ -109,18 +121,22 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     email.isEmpty() -> {
                         binding.emailEditTextLayout.error = "Enter email"
                     }
+
                     password.isEmpty() -> {
                         binding.passwordEditTextLayout.error = "Enter Password"
                     }
+
                     else -> {
                         loginViewModel.login(email, password)
                     }
                 }
             }
+
             R.id.registerTextView -> {
                 val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
             }
+
             R.id.forgetPasswordTextView -> {
                 email = binding.emailEditText.text.toString()
 
@@ -128,11 +144,13 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     email.isEmpty() -> {
                         binding.emailEditTextLayout.error = "Enter email"
                     }
+
                     else -> {
                         loginViewModel.forgetPassword(email)
                     }
                 }
             }
+
             R.id.loginWithGoogleButton -> {
                 googleSignInClient.signOut()
                 val signInIntent = googleSignInClient.signInIntent
@@ -155,6 +173,4 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-
-
 }
