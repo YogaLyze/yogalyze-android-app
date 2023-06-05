@@ -1,5 +1,6 @@
 package com.bangkit.yogalyze.ui.yoga_detail
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,10 +13,15 @@ import com.bangkit.yogalyze.adapter.PoseAdapter
 import com.bangkit.yogalyze.adapter.YogaAdapter
 import com.bangkit.yogalyze.databinding.ActivityYogaDetailBinding
 import com.bangkit.yogalyze.model.Pose
+import com.bangkit.yogalyze.model.PoseData
+import com.bangkit.yogalyze.model.Yoga
+import com.bangkit.yogalyze.model.YogaData
+import com.bangkit.yogalyze.ui.camera.CameraActivity
 
 class YogaDetailActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityYogaDetailBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +43,19 @@ class YogaDetailActivity : AppCompatActivity() {
     private fun showPoses(data: ArrayList<Pose>?) {
         binding.yogaPoses.layoutManager = LinearLayoutManager(this)
         binding.yogaPoses.setHasFixedSize(true)
-        binding.yogaPoses.adapter = data?.let { PoseAdapter(it) }
+        val poseAdapter = data?.let { PoseAdapter(it) }
+        binding.yogaPoses.adapter = poseAdapter
+        poseAdapter!!.setOnItemClickCallback(object : PoseAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: Pose) {
+                showSelectedPose(data)
+            }
+        })
 
+    }
+
+    private fun showSelectedPose(data: Pose) {
+        val intent = Intent(this, CameraActivity::class.java)
+        startActivity(intent)
     }
 
     private fun setupView() {
