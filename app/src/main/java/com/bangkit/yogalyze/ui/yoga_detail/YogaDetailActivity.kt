@@ -58,6 +58,7 @@ class YogaDetailActivity : AppCompatActivity() {
     private fun showSelectedPose(data: Pose) {
         val intent = Intent(this, CameraActivity::class.java)
         intent.putExtra(CameraActivity.EXTRA_IMAGE, data.image)
+        intent.putExtra(CameraActivity.EXTRA_POSE, data.name)
         startActivity(intent)
     }
 
