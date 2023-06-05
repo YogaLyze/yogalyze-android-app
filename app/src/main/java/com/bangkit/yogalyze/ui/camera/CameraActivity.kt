@@ -208,6 +208,7 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraBinding
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var poseName: String
+    private lateinit var yogaName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -228,6 +229,7 @@ class CameraActivity : AppCompatActivity() {
 
         binding.poseImageView.setImageResource(intent.getIntExtra(EXTRA_IMAGE, 0))
         poseName = intent.getStringExtra(EXTRA_POSE).toString()
+        yogaName = intent.getStringExtra(EXTRA_YOGA).toString()
 
         val textureView: TextureView = findViewById(R.id.textureView)
         val previewView: PreviewView = findViewById(R.id.camera)

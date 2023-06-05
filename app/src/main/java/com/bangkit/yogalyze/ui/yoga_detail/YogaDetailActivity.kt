@@ -59,6 +59,7 @@ class YogaDetailActivity : AppCompatActivity() {
         val intent = Intent(this, CameraActivity::class.java)
         intent.putExtra(CameraActivity.EXTRA_IMAGE, data.image)
         intent.putExtra(CameraActivity.EXTRA_POSE, data.name)
+        intent.putExtra(CameraActivity.EXTRA_YOGA, intent.getStringExtra(EXTRA_NAME))
         startActivity(intent)
     }
 
