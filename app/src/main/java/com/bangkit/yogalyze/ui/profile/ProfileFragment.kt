@@ -27,6 +27,9 @@ import com.bangkit.yogalyze.ui.about_us.AboutUsActivity
 import com.bangkit.yogalyze.ui.alarm.AlarmActivity
 import com.bangkit.yogalyze.ui.login.LoginActivity
 import com.bangkit.yogalyze.ui.personal_information.PersonalInformationActivity
+import com.google.firebase.auth.FirebaseAuth
+import java.text.SimpleDateFormat
+import java.util.Date
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "data")
 
@@ -35,6 +38,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
+    private val firebaseAuth = FirebaseAuth.getInstance()
     private val profileViewModel by viewModels<ProfileViewModel> {
         ProfileViewModel.ProfileViewModelFactory(UserPreference.getInstance(requireContext().dataStore))
     }
@@ -52,6 +56,19 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         binding.aboutUsButton.setOnClickListener(this)
         binding.logoutButton.setOnClickListener(this)
         binding.deleteAccountButton.setOnClickListener(this)
+
+        binding.nameTextView.text = firebaseAuth.currentUser?.displayName
+        binding.emailTextView.text = firebaseAuth.currentUser?.email
+
+        val sdf = SimpleDateFormat("dd-MM-yyyy")
+        val timestamp = firebaseAuth.currentUser?.metadata?.creationTimestamp ?: 0
+        val date = Date(timestamp)
+        val formattedDate = sdf.format(date)
+        binding.sinceDateTextView.text = formattedDate
+
+        val initial = firebaseAuth.currentUser?.displayName
+        val firstLetter = initial?.substring(0, 1)
+        binding.initialTextView.text = firstLetter
 
         return root
     }
