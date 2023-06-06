@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.PopupWindow
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
@@ -84,13 +85,38 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.logoutButton -> {
-                val intent = Intent(requireActivity(), LoginActivity::class.java)
-                startActivity(intent)
-                profileViewModel.logout()
+                AlertDialog.Builder(requireContext()).apply {
+                    setTitle("Logout")
+                    setMessage("Are you sure you want to logout?")
+                    setPositiveButton("YES") { _, _ ->
+                        val intent = Intent(requireActivity(), LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                        profileViewModel.logout()
+                    }
+                    setPositiveButton("NO") { dialog, _->
+                        dialog.dismiss()
+                    }
+                    create()
+                    show()
+                }
             }
             R.id.deleteAccountButton -> {
-                val intent = Intent(requireActivity(), LoginActivity::class.java)
-                startActivity(intent)
+                AlertDialog.Builder(requireContext()).apply {
+                    setTitle("Delete Account")
+                    setMessage("Are you sure you want to delete your account?")
+                    setPositiveButton("YES") { _, _ ->
+                        profileViewModel.delete()
+                        val intent = Intent(requireActivity(), LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                    }
+                    setPositiveButton("NO") { dialog, _->
+                        dialog.dismiss()
+                    }
+                    create()
+                    show()
+                }
             }
             R.id.notificationButton -> {
                 val intent = Intent(requireActivity(), AlarmActivity::class.java)

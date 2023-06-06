@@ -20,6 +20,7 @@ import com.bangkit.yogalyze.R
 import com.bangkit.yogalyze.UserPreference
 import com.bangkit.yogalyze.databinding.ActivityLoginBinding
 import com.bangkit.yogalyze.ui.register.RegisterActivity
+import com.bangkit.yogalyze.ui.reset_password.ResetPasswordActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -138,17 +139,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             R.id.forgetPasswordTextView -> {
-                email = binding.emailEditText.text.toString()
-
-                when {
-                    email.isEmpty() -> {
-                        binding.emailEditTextLayout.error = "Enter email"
-                    }
-
-                    else -> {
-                        loginViewModel.forgetPassword(email)
-                    }
-                }
+                val intent = Intent(this, ResetPasswordActivity::class.java)
+                startActivity(intent)
             }
 
             R.id.loginWithGoogleButton -> {
