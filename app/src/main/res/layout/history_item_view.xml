@@ -39,7 +39,7 @@
             android:textColor="@color/font_black"/>
 
         <TextView
-            android:id="@+id/tv_yoga_date"
+            android:id="@+id/yogaDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/yoga_image"
