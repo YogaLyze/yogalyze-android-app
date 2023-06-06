@@ -11,7 +11,7 @@ object PoseData {
     val locust_pose = Pose("Salabhasana","Locust Pose", 24, R.drawable.locust_pose)
     val tree_pose = Pose("Vrikshasana", "Tree Pose", 24, R.drawable.tree_pose)
     val triangle_pose = Pose("Trikonasana", "Triangle Pose", 24, R.drawable.triangle_pose)
-    val standing_forward_bend = Pose("Uttanasana", "Standing Forward Bend", 24, R.drawable.standing_forward_bend_pose)
+    val standing_forward_bend = Pose("Uttanasana", "Standing Forward Bend Pose", 24, R.drawable.standing_forward_bend_pose)
     val fish_pose = Pose("Matsyasana", "Fish Pose", 24, R.drawable.fish_pose)
     val plow_pose = Pose("Halasana", "Plow Pose", 24, R.drawable.plow_pose)
     val side_stretch_pose = Pose("Parsvottanasana", "Side Stretch Pose", 24, R.drawable.side_stretch_pose)

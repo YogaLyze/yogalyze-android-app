@@ -3,7 +3,6 @@ package com.bangkit.yogalyze.ui.camera
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.SurfaceTexture
 import android.os.Build
 import android.os.Bundle
 import android.util.Size
@@ -14,9 +13,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
@@ -59,7 +55,6 @@ class CameraActivity : AppCompatActivity() {
         }
 
         cameraExecutor = Executors.newSingleThreadExecutor()
-
 
         binding.poseImageView.setImageResource(intent.getIntExtra(EXTRA_IMAGE, 0))
         poseName = intent.getStringExtra(EXTRA_POSE).toString()
@@ -201,4 +196,3 @@ class CameraActivity : AppCompatActivity() {
         const val EXTRA_POSE = "extra_pose"
     }
 }
-
