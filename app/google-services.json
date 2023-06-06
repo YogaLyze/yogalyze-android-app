@@ -1,0 +1,51 @@
+{
+  "project_info": {
+    "project_number": "587913373658",
+    "project_id": "yogalyze-capstoneproject",
+    "storage_bucket": "yogalyze-capstoneproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587913373658:android:e094d8f3f8041e6ee8c2e3",
+        "android_client_info": {
+          "package_name": "com.bangkit.yogalyze"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "587913373658-h7ng5rtu2s2q67da5fgg3o7mmjgbf2a1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bangkit.yogalyze",
+            "certificate_hash": "88ae4cee5854e918bc615776a7da103340229104"
+          }
+        },
+        {
+          "client_id": "587913373658-vdioquasgkb2mo6e4pu7dtb7veapng6k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bangkit.yogalyze",
+            "certificate_hash": "92ab0047de67e55d627daa434d44b6bd9d165d60"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0Be1_pAYj0orpfJZpuyr7LBwtTWTi7P4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "587913373658-4cmjckncas3clec372iv2bmj3mej499j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

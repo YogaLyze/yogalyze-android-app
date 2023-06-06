@@ -25,14 +25,14 @@
 
         <TextView
             android:id="@+id/initialTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_gravity="center"
+            android:layout_gravity="center_vertical|center_horizontal"
             android:text="@string/initial"
             android:fontFamily="@font/poppins_semibold"
             android:textColor="@color/font_black"
             android:textSize="60sp"
+            android:layout_marginTop="8dp"
             android:textAlignment="center"/>
     </FrameLayout>
 

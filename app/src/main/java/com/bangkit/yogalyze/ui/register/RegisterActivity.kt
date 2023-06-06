@@ -13,6 +13,11 @@ import androidx.lifecycle.Observer
 import com.bangkit.yogalyze.R
 import com.bangkit.yogalyze.databinding.ActivityRegisterBinding
 import com.bangkit.yogalyze.ui.login.LoginActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -22,6 +27,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var password: String
     private lateinit var confirmpass: String
     private val registerViewModel by viewModels<RegisterViewModel>()
+    private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,9 +38,15 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         setupViewModel()
 
         binding.registerButton.setOnClickListener(this)
-        binding.registerWithFacebookButton.setOnClickListener(this)
         binding.registerWithGoogleButton.setOnClickListener(this)
         binding.loginTextView.setOnClickListener(this)
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("587913373658-4cmjckncas3clec372iv2bmj3mej499j.apps.googleusercontent.com")
+            .requestEmail()
+            .build();
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
     }
 
     private fun setupViewModel() {
@@ -48,8 +60,8 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
             }
         })
 
-        registerViewModel.registerMsg.observe(this){
-            if(it.msg  == "Register Success") {
+        registerViewModel.isRegistered.observe(this){
+            if(it == true) {
                 val intent = Intent(this, LoginActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
@@ -96,18 +108,42 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                         binding.confirmPasswordEditTextLayout.error = "Enter Password"
                     }
 
+                    password.length < 6 -> {
+                        binding.passwordEditTextLayout.error = "Password at least 6 characters"
+                    }
+
                     confirmpass != password -> {
                         binding.confirmPasswordEditTextLayout.error = "Passwords do not match"
                     }
 
                     else -> {
-                        registerViewModel.register(name, email, password, confirmpass)
+                        registerViewModel.register(name, email, password)
                     }
                 }
+            }
+            R.id.registerWithGoogleButton -> {
+                googleSignInClient.signOut()
+                val signInIntent = googleSignInClient.signInIntent
+                startActivityForResult(signInIntent, 1001)
             }
             R.id.loginTextView -> {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
+            }
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 1001) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)!!
+                registerViewModel.firebaseAuthWithGoogle(account.idToken!!)
+            } catch (e: ApiException) {
+                e.printStackTrace()
             }
         }
     }

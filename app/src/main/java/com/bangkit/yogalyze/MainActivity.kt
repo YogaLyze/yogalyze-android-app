@@ -4,11 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -19,6 +19,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bangkit.yogalyze.databinding.ActivityMainBinding
 import com.bangkit.yogalyze.ui.welcome.WelcomeActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "data")
 
@@ -36,9 +40,10 @@ class MainActivity : AppCompatActivity() {
 
         setupView()
 
+
         mainViewModel.getToken().observe(this) {
             if (it != null) {
-                if (it.accessToken?.isEmpty() == true) {
+                if (it.isEmpty() == true) {
                     val intent = Intent(this, WelcomeActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(intent)

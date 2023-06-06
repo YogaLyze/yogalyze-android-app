@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class MainViewModel (private var pref: UserPreference) : ViewModel() {
 
-    fun getToken(): LiveData<LoginResponse> {
+    fun getToken(): LiveData<String> {
         return pref.getToken().asLiveData()
     }
 
