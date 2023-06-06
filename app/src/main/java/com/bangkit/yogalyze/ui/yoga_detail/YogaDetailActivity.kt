@@ -23,7 +23,7 @@ import com.bangkit.yogalyze.ui.camera.CameraActivity
 class YogaDetailActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityYogaDetailBinding
-
+    private lateinit var YogaName : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +31,7 @@ class YogaDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
+        YogaName = intent.getStringExtra(EXTRA_NAME).toString()
 
         binding.yogaName.text = intent.getStringExtra(EXTRA_NAME)
         binding.yogaDuration.text = intent.getIntExtra(EXTRA_DURATION, 0).toString()
@@ -59,7 +60,8 @@ class YogaDetailActivity : AppCompatActivity() {
         val intent = Intent(this, CameraActivity::class.java)
         intent.putExtra(CameraActivity.EXTRA_IMAGE, data.image)
         intent.putExtra(CameraActivity.EXTRA_POSE, data.name)
-        intent.putExtra(CameraActivity.EXTRA_YOGA, intent.getStringExtra(EXTRA_NAME))
+        intent.putExtra(CameraActivity.EXTRA_YOGA, YogaName)
+        Log.d("LihatYoga", YogaName)
         startActivity(intent)
     }
 

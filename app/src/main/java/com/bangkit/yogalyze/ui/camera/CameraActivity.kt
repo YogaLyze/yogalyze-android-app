@@ -13,6 +13,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
+import android.util.Log
 import android.util.Size
 import android.view.Surface
 import android.view.TextureView
@@ -34,7 +35,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bangkit.yogalyze.R
 import com.bangkit.yogalyze.databinding.ActivityCameraBinding
+import com.bangkit.yogalyze.ml.Anxiety
 import com.bangkit.yogalyze.ml.BackPain
+import com.bangkit.yogalyze.ml.Flexibility
+import com.bangkit.yogalyze.ml.NeckPain
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.common.FileUtil
 import org.tensorflow.lite.support.image.TensorImage
@@ -50,6 +54,9 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var poseName: String
     private lateinit var yogaName: String
     lateinit var model1: BackPain
+    lateinit var model2: Anxiety
+    lateinit var model3: Flexibility
+    lateinit var model4: NeckPain
     lateinit var labels: List<String>
     var outputFeature0: FloatArray? = null
     lateinit var bitmap: Bitmap
@@ -83,8 +90,26 @@ class CameraActivity : AppCompatActivity() {
         binding.poseImageView.setImageResource(intent.getIntExtra(EXTRA_IMAGE, 0))
         poseName = intent.getStringExtra(EXTRA_POSE).toString()
         yogaName = intent.getStringExtra(EXTRA_YOGA).toString()
-        labels = FileUtil.loadLabels(this, "labelBackPain.txt")
+        Log.d("lihatYoga", yogaName)
+        Log.d("lihatYogaPosa", poseName)
+        when(yogaName){
+            "Backpain" -> {
+                labels = FileUtil.loadLabels(this, "labelBackPain.txt")
+            }
+            "Anxiety" -> {
+                labels = FileUtil.loadLabels(this, "labelAnxiety.txt")
+            }
+            "Flexibility" -> {
+                labels = FileUtil.loadLabels(this, "labelFlexibility.txt")
+            }
+            "Neck Pain" -> {
+                labels = FileUtil.loadLabels(this, "labelNeckPain.txt")
+            }
+        }
         model1 = BackPain.newInstance(this)
+        model2 = Anxiety.newInstance(this)
+        model3 = Flexibility.newInstance(this)
+        model4 = NeckPain.newInstance(this)
         val handlerThread = HandlerThread("videoThread")
         handlerThread.start()
         handler = Handler(handlerThread.looper)
@@ -124,21 +149,33 @@ class CameraActivity : AppCompatActivity() {
                     tensorImage.load(bitmap1)
                     val byteBuffer = tensorImage.buffer
                     inputFeature0.loadBuffer(byteBuffer)
-                    val outputs1 = model1.process(inputFeature0)
-                    outputFeature0 = outputs1.outputFeature0AsTensorBuffer.floatArray
-
-                    val threshold = 0.5f
-                    val detectedScores = mutableListOf<Float>()
-
-                    outputFeature0?.forEachIndexed { index, score ->
-                        if (score > threshold) {
-                            detectedScores.add(score)
+                    when(yogaName){
+                        "Backpain" -> {
+                            val outputs1 = model1.process(inputFeature0)
+                            outputFeature0 = outputs1.outputFeature0AsTensorBuffer.floatArray
+                        }
+                        "Anxiety" -> {
+                            val outputs2 = model2.process(inputFeature0)
+                            outputFeature0 = outputs2.outputFeature0AsTensorBuffer.floatArray
+                        }
+                        "Flexibility" -> {
+                            val outputs3 = model3.process(inputFeature0)
+                            outputFeature0 = outputs3.outputFeature0AsTensorBuffer.floatArray
+                        }
+                        "Neck Pain" -> {
+                            val outputs4 = model4.process(inputFeature0)
+                            outputFeature0 = outputs4.outputFeature0AsTensorBuffer.floatArray
                         }
                     }
 
-                    val formattedScores = detectedScores.map { "%.2f%%".format(it * 100) } // Mengubah skor menjadi format dengan dua angka desimal, dikalikan dengan 100, dan menambahkan tanda persentase "%"
-                    val labelString = formattedScores.joinToString(separator = "\n")
-                    text.text = labelString
+                    val indeks = labels.indexOf(poseName)
+                    val score = outputFeature0?.getOrNull(indeks)
+                    score?.let {
+                        val formattedScore = String.format("%.2f", it)
+                        val scoreWithPercentage = "${(formattedScore.toFloat() * 100).toInt()}%"
+                        text.text = scoreWithPercentage
+                    }
+
 
                     // Delay selama 1 detik sebelum memproses gambar berikutnya
                     handler.postDelayed({

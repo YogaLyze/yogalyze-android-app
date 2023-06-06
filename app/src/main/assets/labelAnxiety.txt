@@ -1,0 +1,5 @@
+Tree Pose
+Triangle Pose
+Standing Forward Bend Pose
+Fish Pose
+Child Pose
