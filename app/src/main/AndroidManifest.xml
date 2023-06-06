@@ -47,7 +47,7 @@
             android:name=".ui.reset_password.ResetPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.personal_information.ChangeDataPesonalInformationActivity"
+            android:name=".ui.personal_information.ChangeDataPersonalInformationActivity"
             android:exported="false" />
         <activity
             android:name=".ui.yogalyze_video.YogalyzeVideoActivity"

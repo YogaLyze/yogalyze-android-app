@@ -98,7 +98,8 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
                 val fragment = ProfileFragment()
 
                 // Menambahkan Fragment ke container di dalam Activity
-                fragmentTransaction.add(R.id.container, fragment)
+                fragmentTransaction.replace(R.id.container, fragment)
+                fragmentTransaction.addToBackStack(null)
                 fragmentTransaction.commit()
             }
         }
