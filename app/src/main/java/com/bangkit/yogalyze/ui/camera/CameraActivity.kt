@@ -14,7 +14,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.Log
-import android.util.Size
 import android.view.Surface
 import android.view.TextureView
 import android.view.WindowInsets
@@ -23,14 +22,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.ImageProxy
-import androidx.camera.core.Preview
-import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bangkit.yogalyze.R
@@ -44,13 +35,10 @@ import org.tensorflow.lite.support.common.FileUtil
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
-//
+
 class CameraActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCameraBinding
-    private lateinit var cameraExecutor: ExecutorService
-
     private lateinit var poseName: String
     private lateinit var yogaName: String
     lateinit var model1: BackPain
@@ -85,7 +73,6 @@ class CameraActivity : AppCompatActivity() {
         }
 
 //        cameraExecutor = Executors.newSingleThreadExecutor()
-
 
         binding.poseImageView.setImageResource(intent.getIntExtra(EXTRA_IMAGE, 0))
         poseName = intent.getStringExtra(EXTRA_POSE).toString()
@@ -241,91 +228,6 @@ class CameraActivity : AppCompatActivity() {
 
         }, handler)
     }
-//    private fun startCamera(previewView: PreviewView, textureView: TextureView) {
-//        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
-//        cameraProviderFuture.addListener({
-//            val cameraProvider = cameraProviderFuture.get()
-//            bindCameraUseCases(cameraProvider, previewView, textureView)
-//        }, ContextCompat.getMainExecutor(this))
-//    }
-//
-//    private fun bindCameraUseCases(
-//        cameraProvider: ProcessCameraProvider,
-//        textureView: PreviewView,
-//        tv: TextureView
-//    ) {
-//        val preview = Preview.Builder()
-//            .setTargetResolution(Size(textureView.width, textureView.height))
-//            .build()
-//
-//        preview.setSurfaceProvider(textureView.surfaceProvider)
-//
-//        val imageAnalysis = ImageAnalysis.Builder()
-//            .setTargetResolution(Size(textureView.width, textureView.height))
-//            .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-//            .build()
-//
-//        val poseDetectorAnalyzer = ImageAnalysis.Analyzer { image ->
-//            var poseDetected = true
-//
-//            // Perbarui nilai timer jika pose terdeteksi
-//            if (poseDetected) {
-//                runOnUiThread {
-//                    val bitmap = image.toBitmap()
-//                    val gambar = Bitmap.createScaledBitmap(bitmap, 100, 100, false)
-//                    val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 100, 100, 3), DataType.FLOAT32)
-//                    val tensorImage = TensorImage(DataType.FLOAT32)
-//                    tensorImage.load(gambar)
-//                    val byteBuffer = tensorImage.buffer
-//                    inputFeature0.loadBuffer(byteBuffer)
-//                    val outputs1 = model1.process(inputFeature0)
-//                    outputFeature0 = outputs1.outputFeature0AsTensorBuffer.floatArray
-//                    val threshold = 0.5f
-//                    val detectedScores = mutableListOf<Float>()
-//
-//                    outputFeature0?.forEachIndexed { index, score ->
-//                        if (score > threshold) {
-//                            runOnUiThread {
-//                                binding.accuracyTextView.text = score.toString()
-//                            }
-//
-//                        }
-//                    }
-//
-//                    if(gambar!=null){
-//                        binding.timer.text = "10"
-//                        poseDetected=false
-//                    }
-//                     // Ubah teks menjadi "10"
-//                }
-//            }
-//            if(!poseDetected){
-//                image.close()
-//            }
-//        }
-//
-//        imageAnalysis.setAnalyzer(cameraExecutor, poseDetectorAnalyzer)
-//
-//        val cameraSelector = CameraSelector.Builder()
-//            .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-//            .build()
-//
-//        try {
-//            cameraProvider.unbindAll()
-//            cameraProvider.bindToLifecycle(
-//                this,
-//                cameraSelector,
-//                preview,
-//                imageAnalysis
-//            )
-//        } catch (exc: Exception) {
-//            Toast.makeText(
-//                this@CameraActivity,
-//                "Failed to start camera.",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        }
-//    }
 
     private fun setupView() {
         @Suppress("DEPRECATION")
@@ -371,4 +273,3 @@ class CameraActivity : AppCompatActivity() {
         const val EXTRA_POSE = "extra_pose"
     }
 }
-
