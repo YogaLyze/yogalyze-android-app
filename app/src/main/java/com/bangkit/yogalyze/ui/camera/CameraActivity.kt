@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.SurfaceTexture
 import android.hardware.camera2.CameraCaptureSession
+import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraDevice
 import android.hardware.camera2.CameraManager
 import android.os.Build
@@ -227,6 +228,7 @@ class CameraActivity : AppCompatActivity() {
             }
 
         }, handler)
+
     }
 
     private fun setupView() {
