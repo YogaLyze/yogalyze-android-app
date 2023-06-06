@@ -35,8 +35,8 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-    private val profileViewModel by viewModels<MainViewModel> {
-        MainViewModel.MainViewModelFactory(UserPreference.getInstance(requireContext().dataStore))
+    private val profileViewModel by viewModels<ProfileViewModel> {
+        ProfileViewModel.ProfileViewModelFactory(UserPreference.getInstance(requireContext().dataStore))
     }
 
     override fun onCreateView(
