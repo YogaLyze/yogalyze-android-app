@@ -31,12 +31,15 @@ class ResetPasswordActivity : AppCompatActivity(){
         setupView()
         setupViewModel()
 
+        email = binding.emailEditText.text.toString()
+
         binding.resetButton.setOnClickListener{
             email = binding.emailEditText.text.toString()
 
             when {
                 email.isEmpty() -> {
                     binding.emailEditTextLayout.error = "Enter email"
+                    Log.d("lihatEmail", email)
                 }
 
                 else -> {
@@ -62,7 +65,7 @@ class ResetPasswordActivity : AppCompatActivity(){
         resetPasswordViewModel.isLogin.observe(this){
             if(it == true){
                 val intent = Intent(this, ResetPasswordSuccessActivity::class.java)
-                intent.putExtra(ResetPasswordSuccessActivity.EMAIL, binding.emailEditText.text)
+                intent.putExtra(ResetPasswordSuccessActivity.EMAIL, email)
                 startActivity(intent)
             }
         }

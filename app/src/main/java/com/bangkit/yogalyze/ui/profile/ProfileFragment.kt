@@ -28,6 +28,7 @@ import com.bangkit.yogalyze.ui.about_us.AboutUsActivity
 import com.bangkit.yogalyze.ui.alarm.AlarmActivity
 import com.bangkit.yogalyze.ui.login.LoginActivity
 import com.bangkit.yogalyze.ui.personal_information.PersonalInformationActivity
+import com.bangkit.yogalyze.ui.welcome.WelcomeActivity
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -89,12 +90,12 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                     setTitle("Logout")
                     setMessage("Are you sure you want to logout?")
                     setPositiveButton("YES") { _, _ ->
-                        val intent = Intent(requireActivity(), LoginActivity::class.java)
+                        val intent = Intent(requireActivity(), WelcomeActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                         startActivity(intent)
                         profileViewModel.logout()
                     }
-                    setPositiveButton("NO") { dialog, _->
+                    setNegativeButton("NO") { dialog, _->
                         dialog.dismiss()
                     }
                     create()
@@ -107,11 +108,11 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                     setMessage("Are you sure you want to delete your account?")
                     setPositiveButton("YES") { _, _ ->
                         profileViewModel.delete()
-                        val intent = Intent(requireActivity(), LoginActivity::class.java)
+                        val intent = Intent(requireActivity(), WelcomeActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                         startActivity(intent)
                     }
-                    setPositiveButton("NO") { dialog, _->
+                    setNegativeButton("NO") { dialog, _->
                         dialog.dismiss()
                     }
                     create()

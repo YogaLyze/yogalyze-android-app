@@ -31,7 +31,7 @@ class ResetPasswordViewModel: ViewModel() {
             .addOnFailureListener {
                 _isLoading.value = false
                 _isLogin.value = false
-                _statusMessage.value = Event("Password reset failed! make sure you entered the correct email address")
+                _statusMessage.value = Event("Password reset failed! Make sure you entered the correct email")
                 }
             }
     }
