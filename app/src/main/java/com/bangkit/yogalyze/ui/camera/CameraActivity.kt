@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.SurfaceTexture
 import android.hardware.camera2.CameraCaptureSession
-import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraDevice
 import android.hardware.camera2.CameraManager
 import android.os.Build
@@ -35,7 +34,6 @@ import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.common.FileUtil
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
-import java.util.concurrent.ExecutorService
 
 class CameraActivity : AppCompatActivity() {
 
@@ -72,8 +70,6 @@ class CameraActivity : AppCompatActivity() {
                 REQUEST_CODE_PERMISSIONS
             )
         }
-
-//        cameraExecutor = Executors.newSingleThreadExecutor()
 
         binding.poseImageView.setImageResource(intent.getIntExtra(EXTRA_IMAGE, 0))
         poseName = intent.getStringExtra(EXTRA_POSE).toString()
@@ -192,9 +188,6 @@ class CameraActivity : AppCompatActivity() {
 
         }
         cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
-//        val textureView: TextureView = findViewById(R.id.textureView)
-//        val previewView: PreviewView = findViewById(R.id.camera)
-//        textureView.post { startCamera(previewView,textureView) }
     }
     @SuppressLint("MissingPermission")
     fun openCamera(){
