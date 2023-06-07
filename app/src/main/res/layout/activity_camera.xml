@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     tools:context=".ui.camera.CameraActivity">
 
     <ImageView
@@ -20,31 +21,34 @@
     <ImageButton
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:background="@drawable/close_square_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginEnd="24dp"
-        android:layout_marginTop="24dp"/>
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/close_square_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/poseImageView"
         android:layout_width="150dp"
         android:layout_height="100dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+
+        android:layout_marginBottom="50dp"
         android:background="@color/white_backgroud"
+        android:rotation="90"
         android:src="@drawable/cat_pose"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <FrameLayout
         android:id="@+id/frame_accuracy"
         android:layout_width="150dp"
         android:layout_height="100dp"
         android:background="@drawable/green_bg_with_stroke"
-        app:layout_constraintBottom_toTopOf="@+id/poseImageView"
-        app:layout_constraintEnd_toEndOf="@+id/poseImageView"
-        android:layout_marginBottom="24dp">
+        android:rotation="90"
+        app:layout_constraintBottom_toBottomOf="@+id/poseImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/poseImageView"
+        app:layout_constraintTop_toTopOf="@+id/poseImageView">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -83,12 +87,12 @@
         android:id="@+id/timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:fontFamily="@font/poppins_bold"
+        android:rotation="90"
         android:text="@string/timer_number"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:textColor="#A80303"
         android:textSize="64sp"
-        android:fontFamily="@font/poppins_bold"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

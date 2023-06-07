@@ -54,8 +54,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.camera.CameraActivity"
-            android:exported="true"
-            android:screenOrientation="landscape">
+            android:exported="true">
 
 <!--             <intent-filter>-->
 <!--             <action android:name="android.intent.action.MAIN" />-->
