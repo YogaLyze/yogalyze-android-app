@@ -3,14 +3,17 @@ package com.bangkit.yogalyze.ui.camera
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.SurfaceTexture
 import android.hardware.camera2.CameraCaptureSession
 import android.hardware.camera2.CameraDevice
 import android.hardware.camera2.CameraManager
 import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.Log
@@ -30,6 +33,7 @@ import com.bangkit.yogalyze.ml.Anxiety
 import com.bangkit.yogalyze.ml.BackPain
 import com.bangkit.yogalyze.ml.Flexibility
 import com.bangkit.yogalyze.ml.NeckPain
+import com.bangkit.yogalyze.ui.score.ScoreActivity
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.common.FileUtil
 import org.tensorflow.lite.support.image.TensorImage
@@ -55,6 +59,9 @@ class CameraActivity : AppCompatActivity() {
     lateinit var text: TextView
     var bundle: Bundle? = null
     private var isProcessing = false
+    private var countDownTimer: CountDownTimer? = null
+    private var index : Int? = 0
+    private var finalScore: Int? = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -158,6 +165,14 @@ class CameraActivity : AppCompatActivity() {
                         val formattedScore = String.format("%.2f", it)
                         val scoreWithPercentage = "${(formattedScore.toFloat() * 100).toInt()}%"
                         text.text = scoreWithPercentage
+                        finalScore = (formattedScore.toFloat() * 100).toInt()
+
+                        if(finalScore!! >= 90 && index == 0){
+                            binding.poseGuide.text = "Hold Your Pose"
+                            binding.poseGuide.setTextColor(Color.GREEN)
+                            startCountdownTimer()
+                            index = 1
+                        }
                     }
 
 
@@ -223,6 +238,33 @@ class CameraActivity : AppCompatActivity() {
         }, handler)
 
     }
+
+    private fun startCountdownTimer() {
+        val totalTimeInMillis = 10000 // Waktu total dalam milidetik (misalnya 60 detik)
+
+        countDownTimer = object : CountDownTimer(totalTimeInMillis.toLong(), 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val seconds = millisUntilFinished / 1000
+                // Update tampilan setiap detik
+                // Misalnya: textView.text = "Sisa waktu: $seconds detik"
+                binding.timer.text = seconds.toString()
+            }
+
+            override fun onFinish() {
+                getScore()
+            }
+        }
+
+        countDownTimer?.start()
+    }
+
+    private fun getScore() {
+        val intent = Intent(this, ScoreActivity::class.java)
+        intent.putExtra(ScoreActivity.SCORE, finalScore.toString())
+        Log.d("lihatScore", finalScore.toString())
+        startActivity(intent)
+    }
+
 
     private fun setupView() {
         @Suppress("DEPRECATION")

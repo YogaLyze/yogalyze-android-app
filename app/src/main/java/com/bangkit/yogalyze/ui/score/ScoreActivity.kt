@@ -6,11 +6,17 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import com.bangkit.yogalyze.R
+import com.bangkit.yogalyze.databinding.ActivityScoreBinding
 
 class ScoreActivity : AppCompatActivity() {
+
+    private lateinit var binding : ActivityScoreBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_score)
+        binding = ActivityScoreBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.scoreTextView.text = intent.getStringExtra(SCORE)
 
         setupView()
     }
@@ -26,5 +32,9 @@ class ScoreActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+    }
+
+    companion object{
+        const val SCORE = "score"
     }
 }

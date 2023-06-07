@@ -49,10 +49,11 @@
                 android:src="@drawable/line_img" />
 
             <TextView
+                android:id="@+id/scoreTextView"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:fontFamily="@font/poppins_bold"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:text="90"
                 android:textAlignment="center"
                 android:textColor="@color/font_black"
