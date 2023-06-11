@@ -51,7 +51,9 @@ class HistoryFragment : Fragment() {
         historyViewModel.getToken().observe(requireActivity()){
             historyViewModel.getHistory(it)
             historyViewModel.historyData.observe(viewLifecycleOwner){
-                setHistoryData(it)
+                if(it != null){
+                    setHistoryData(it)
+                }
             }
         }
     }
