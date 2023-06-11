@@ -20,21 +20,13 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="DialogTheme" parent="Theme.AppCompat.Dialog">
-        <!-- Atur atribut-atribut yang ingin Anda sesuaikan -->
-        <item name="android:textColorPrimary">@color/font_black</item>
-        <item name="android:textColorSecondary">@color/font_black</item>
-        <item name="android:windowBackground">@android:color/white</item>
-        <item name="android:windowMinWidthMinor">80%</item>
-        <item name="android:windowMinWidthMajor">80%</item>
-        <item name="android:buttonBarButtonStyle">@style/Button.Dialog</item>
-        <!-- Tambahkan atribut-atribut lainnya sesuai kebutuhan -->
-    </style>
-
-    <style name="Button.Dialog" parent="Widget.AppCompat.Button">
-        <item name="android:background">@drawable/button_bg_pink</item>
-        <item name="android:textColor">@color/white</item>
-        <!-- Tambahkan atribut-atribut lainnya sesuai kebutuhan -->
+    <style name="DialogTheme" parent="Base.Theme.YogaLyze">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="backgroundColor">@color/white</item>
     </style>
 
 </resources>

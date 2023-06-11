@@ -23,23 +23,11 @@
         <receiver
             android:name=".ui.alarm.AlarmReceiver"
             android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </receiver>
-
+            android:exported="false"/>
         <activity
             android:name=".ui.alarm.AlarmActivity"
-            android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
+            android:exported="false"
+            android:theme="@style/DialogTheme"/>
         <activity
             android:name=".ui.reset_password.ResetPasswordSuccessActivity"
             android:exported="false" />

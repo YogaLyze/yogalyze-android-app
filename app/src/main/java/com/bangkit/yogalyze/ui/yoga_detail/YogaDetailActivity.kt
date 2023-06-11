@@ -70,6 +70,7 @@ class YogaDetailActivity : AppCompatActivity() {
         intent.putExtra(CameraActivity.EXTRA_IMAGE, data.image)
         intent.putExtra(CameraActivity.EXTRA_POSE, data.name)
         intent.putExtra(CameraActivity.EXTRA_YOGA, YogaName)
+        intent.putExtra(CameraActivity.EXTRA_DURATION, data.duration)
         Log.d("LihatYoga", YogaName)
         startActivity(intent)
     }

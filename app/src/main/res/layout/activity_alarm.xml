@@ -5,32 +5,58 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:paddingBottom="16dp"
+    android:paddingTop="16dp"
     tools:context=".ui.alarm.AlarmActivity">
 
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginBottom="16dp"-->
-<!--        android:text="@string/repeating_alarm"-->
-<!--        android:textSize="16sp"-->
-<!--        android:textStyle="bold" />-->
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="center_vertical"-->
-<!--        android:orientation="horizontal">-->
-<!--        <ImageButton-->
-<!--            android:id="@+id/btn_repeating_time"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@drawable/ic_access_time_black" />-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginBottom="4dp">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Set Alarm Notification"
+            android:textSize="16dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/font_black"
+            android:textAllCaps="false"/>
+
+
+        <ImageButton
+            android:id="@+id/closeButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/close_square_button"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+        <ImageButton
+            android:id="@+id/btn_repeating_time"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_access_time_black"
+            android:layout_marginEnd="4dp"/>
         <TextView
             android:id="@+id/tv_repeating_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="pilih waktu" />
-<!--    </LinearLayout>-->
+            android:textColor="@color/font_black"
+            android:textSize="12sp"
+            android:fontFamily="@font/poppins_light"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,17 +64,30 @@
         android:gravity="center"
         android:orientation="horizontal">
         <Button
-            android:id="@+id/btn_set_repeating_alarm"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_cancel_repeating_alarm"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="set alarmn" />
+            android:text="Cancel Alarm"
+            android:textSize="14dp"
+            android:fontFamily="@font/poppins_medium"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/pink"/>
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="0dp" />
+
 
         <Button
-            android:id="@+id/btn_cancel_repeating_alarm"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_set_repeating_alarm"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="cancel alarm" />
+            android:text="Set Alarm"
+            android:textSize="14dp"
+            android:fontFamily="@font/poppins_medium"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/pink"/>
     </LinearLayout>
 </LinearLayout>

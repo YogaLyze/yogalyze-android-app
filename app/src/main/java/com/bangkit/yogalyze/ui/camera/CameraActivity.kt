@@ -52,6 +52,7 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraBinding
     private lateinit var poseName: String
     private lateinit var yogaName: String
+    private var duration : Int = 0
     lateinit var model1: BackPain
     lateinit var model2: Anxiety
     lateinit var model3: Flexibility
@@ -117,8 +118,9 @@ class CameraActivity : AppCompatActivity() {
         binding.poseImageView.setImageResource(intent.getIntExtra(EXTRA_IMAGE, 0))
         poseName = intent.getStringExtra(EXTRA_POSE).toString()
         yogaName = intent.getStringExtra(EXTRA_YOGA).toString()
-        Log.d("lihatYoga", yogaName)
-        Log.d("lihatYogaPosa", poseName)
+        duration = intent.getIntExtra(EXTRA_DURATION, 0)
+        binding.timer.text = (duration*60).toString()
+        Log.d("lihatDuration", duration.toString())
         when(yogaName){
             "Backpain" -> {
                 labels = FileUtil.loadLabels(this, "labelBackPain.txt")
@@ -277,7 +279,7 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun startCountdownTimer() {
-        val totalTimeInMillis = 10000 // Waktu total dalam milidetik (misalnya 60 detik)
+        val totalTimeInMillis = duration*60000 // Waktu total dalam milidetik (misalnya 60 detik)
 
         countDownTimer = object : CountDownTimer(totalTimeInMillis.toLong(), 1000) {
             override fun onTick(millisUntilFinished: Long) {
@@ -356,12 +358,29 @@ class CameraActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        // Hentikan countdown timer jika sedang berjalan
+        countDownTimer?.cancel()
+        // Tutup kamera jika sedang terbuka
+        if (::cameraDevice.isInitialized) {
+            cameraDevice.close()
+        }
+        // Hentikan thread handler
+        handler.looper.quitSafely()
+        // Hapus model TensorFlow Lite untuk mengosongkan sumber daya
+        model1.close()
+        model2.close()
+        model3.close()
+        model4.close()
+    }
+
     companion object {
-        const val CAMERA_X_RESULT = 200
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSIONS = 10
         const val EXTRA_IMAGE = "extra_image"
         const val EXTRA_YOGA = "extra_yoga"
         const val EXTRA_POSE = "extra_pose"
+        const val EXTRA_DURATION = "extra_duration"
     }
 }

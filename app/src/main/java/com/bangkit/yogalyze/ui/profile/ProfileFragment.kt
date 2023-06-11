@@ -111,6 +111,8 @@ class ProfileFragment : Fragment(), View.OnClickListener {
             }
             R.id.notificationButton -> {
                 val intent = Intent(requireActivity(), AlarmActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                 startActivity(intent)
             }
         }
