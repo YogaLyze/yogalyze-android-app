@@ -14,14 +14,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "587913373658-h7ng5rtu2s2q67da5fgg3o7mmjgbf2a1.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.bangkit.yogalyze",
-            "certificate_hash": "88ae4cee5854e918bc615776a7da103340229104"
-          }
-        },
-        {
           "client_id": "587913373658-vdioquasgkb2mo6e4pu7dtb7veapng6k.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
