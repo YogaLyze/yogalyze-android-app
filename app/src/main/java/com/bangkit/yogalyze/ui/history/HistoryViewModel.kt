@@ -68,7 +68,10 @@ class HistoryViewModel : ViewModel() {
             ) {
                 if (response.isSuccessful) {
                     _isLoading.value = false
-                    _historyData.value = response.body()?.userHistory as List<UserHistoryItem>
+                    val a = response.body()!!.userHistory.toString()
+                    if(a != "[]"){
+                        _historyData.value = response.body()?.userHistory as List<UserHistoryItem>
+                    }
                     Log.d(TAG, "success")
                     Log.d(TAG, response.body()!!.userHistory.toString())
                     Log.d(TAG, historyData.value.toString())
