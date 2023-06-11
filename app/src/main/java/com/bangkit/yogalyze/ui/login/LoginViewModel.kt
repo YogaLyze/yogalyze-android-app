@@ -1,23 +1,11 @@
 package com.bangkit.yogalyze.ui.login
 
-import android.provider.Settings.Global.getString
-import android.util.Log
 import androidx.lifecycle.*
 import com.bangkit.yogalyze.Event
-import com.bangkit.yogalyze.R
 import com.bangkit.yogalyze.UserPreference
-import com.bangkit.yogalyze.api.ApiConfig
-import com.bangkit.yogalyze.api.LoginRequest
-import com.bangkit.yogalyze.api.RegisterRequest
-import com.bangkit.yogalyze.api.response.LoginResponse
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class LoginViewModel (private val pref: UserPreference) : ViewModel(){
 

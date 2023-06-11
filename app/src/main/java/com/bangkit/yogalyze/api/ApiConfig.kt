@@ -19,7 +19,7 @@ class ApiConfig {
                 .addInterceptor(loggingInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://yogalyze-capstoneproject.et.r.appspot.com")
+                .baseUrl("https://yogalyze-backend-api-7myvh7basq-uc.a.run.app")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

@@ -1,51 +1,47 @@
 package com.bangkit.yogalyze.api
 
-import com.bangkit.yogalyze.api.response.GetUserResponse
-import com.bangkit.yogalyze.api.response.LoginResponse
-import com.bangkit.yogalyze.api.response.RegisterResponse
-import com.bangkit.yogalyze.api.response.UpdateUserResponse
+import com.bangkit.yogalyze.api.response.AddHistoryResponse
+import com.bangkit.yogalyze.api.response.CreateUserProfileResponse
+import com.bangkit.yogalyze.api.response.GetHistoryResponse
+import com.bangkit.yogalyze.api.response.GetUserProfileResponse
 import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {
 
-//    @POST("/auth/register")
-//    fun register(
-//        @Body request : RegisterRequest
-//    ): Call<RegisterResponse>
-//
-//    @POST("/auth/login")
-//    fun login(
-//        @Body request : LoginRequest
-//    ): Call<LoginResponse>
-//
     @GET("/user/profile")
-    fun getUser(
+    fun getUserProfile(
         @Header("Authorization") token : String
-    ): Call<GetUserResponse>
+    ): Call<GetUserProfileResponse>
 
-    @POST("/user/update")
-    fun updateUserData(
+    @PUT("/user/profile")
+    fun createUserProfile(
         @Header("Authorization") token: String,
         @Body request : UpdateUserDataRequest
-    ): Call<UpdateUserResponse>
+    ): Call<CreateUserProfileResponse>
+
+    @POST("/history/add")
+    fun addHistory(
+        @Header("Authorization") token: String,
+        @Body request : HistoryDataRequest
+    ): Call<AddHistoryResponse>
+
+    @GET("/history/user")
+    fun getHistory(
+        @Header("Authorization") token : String
+    ): Call<GetHistoryResponse>
 }
 
+data class HistoryDataRequest(
+    val yogaType: String,
+    val yogaPose: String,
+    val score: Int? = 0,
+    val date: String
+)
+
 data class UpdateUserDataRequest(
-    val age: Int? = 0,
+    val birthDate: String? = null,
     val gender: String? = null,
-    val height: Double? = 0.0,
-    val weigth: Double? = 0.0
-)
-
-data class RegisterRequest(
-    val name: String,
-    val email: String,
-    val password: String,
-    val confirmpass: String
-)
-
-data class LoginRequest(
-    val email: String,
-    val password: String
+    val weight: Double? = 0.0,
+    val height: Double? = 0.0
 )

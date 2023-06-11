@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit.yogalyze.MainActivity
 import com.bangkit.yogalyze.R
 import com.bangkit.yogalyze.adapter.PoseAdapter
 import com.bangkit.yogalyze.adapter.YogaAdapter
@@ -18,6 +19,7 @@ import com.bangkit.yogalyze.model.PoseData
 import com.bangkit.yogalyze.model.Yoga
 import com.bangkit.yogalyze.model.YogaData
 import com.bangkit.yogalyze.ui.camera.CameraActivity
+import com.bangkit.yogalyze.ui.home.HomeFragment
 
 
 class YogaDetailActivity : AppCompatActivity() {
@@ -41,6 +43,13 @@ class YogaDetailActivity : AppCompatActivity() {
         showPoses(intent.getParcelableArrayListExtra<Pose>(EXTRA_POSES))
 
         Log.d("yogaPose", intent.getParcelableArrayListExtra<Pose>(EXTRA_POSES).toString())
+
+        binding.backButton.setOnClickListener(){
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra(MainActivity.EXTRA_FRAGMENT, MainActivity.FRAGMENT_HOME)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun showPoses(data: ArrayList<Pose>?) {
@@ -76,6 +85,14 @@ class YogaDetailActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+    }
+
+    override fun onBackPressed() {
+        // Ganti fragment dengan HomeFragment ketika tombol back ditekan
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentFrame, HomeFragment())
+            .commit()
+        super.onBackPressed()
     }
 
     companion object {

@@ -24,20 +24,27 @@ import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import com.bangkit.yogalyze.R
+import com.bangkit.yogalyze.UserPreference
 import com.bangkit.yogalyze.databinding.ActivityCameraBinding
 import com.bangkit.yogalyze.ml.Anxiety
 import com.bangkit.yogalyze.ml.BackPain
 import com.bangkit.yogalyze.ml.Flexibility
 import com.bangkit.yogalyze.ml.NeckPain
+import com.bangkit.yogalyze.ui.history.HistoryViewModel
 import com.bangkit.yogalyze.ui.score.ScoreActivity
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.common.FileUtil
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
+import java.util.Calendar
 
 class CameraActivity : AppCompatActivity() {
 
@@ -62,6 +69,29 @@ class CameraActivity : AppCompatActivity() {
     private var countDownTimer: CountDownTimer? = null
     private var index : Int? = 0
     private var finalScore: Int? = 0
+    private val historyViewModel by viewModels<HistoryViewModel>()
+
+    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (!allPermissionsGranted()) {
+                Toast.makeText(
+                    this,
+                    "Not getting permission",
+                    Toast.LENGTH_SHORT
+                ).show()
+                finish()
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -175,7 +205,6 @@ class CameraActivity : AppCompatActivity() {
                         }
                     }
 
-
                     // Delay selama 1 detik sebelum memproses gambar berikutnya
                     handler.postDelayed({
                         isProcessing = false
@@ -204,6 +233,7 @@ class CameraActivity : AppCompatActivity() {
         }
         cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
     }
+
     @SuppressLint("MissingPermission")
     fun openCamera(){
         cameraManager.openCamera(cameraManager.cameraIdList[1], object:CameraDevice.StateCallback(){
@@ -251,6 +281,7 @@ class CameraActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
+                saveHistory(yogaName, poseName, finalScore!!)
                 getScore()
             }
         }
@@ -258,10 +289,22 @@ class CameraActivity : AppCompatActivity() {
         countDownTimer?.start()
     }
 
+    private fun saveHistory(yoga_name : String, yoga_pose : String, final_score : Int? = 0) {
+        val calendar: Calendar = Calendar.getInstance()
+        val year: Int = calendar.get(Calendar.YEAR)
+        val month: Int = calendar.get(Calendar.MONTH) + 1 // Perhatikan penambahan 1 karena indeks bulan dimulai dari 0
+        val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
+
+        var date = "$year-$month-$day"
+
+        historyViewModel.getToken().observe(this){
+            historyViewModel.saveHistory(it, yoga_name, yoga_pose, final_score, date)
+        }
+    }
+
     private fun getScore() {
         val intent = Intent(this, ScoreActivity::class.java)
         intent.putExtra(ScoreActivity.SCORE, finalScore.toString())
-        Log.d("lihatScore", finalScore.toString())
         startActivity(intent)
     }
 
@@ -277,28 +320,6 @@ class CameraActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
-    }
-
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
-    }
-
-        override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            if (!allPermissionsGranted()) {
-                Toast.makeText(
-                    this,
-                    "Not getting permission",
-                    Toast.LENGTH_SHORT
-                ).show()
-                finish()
-            }
-        }
     }
 
     companion object {

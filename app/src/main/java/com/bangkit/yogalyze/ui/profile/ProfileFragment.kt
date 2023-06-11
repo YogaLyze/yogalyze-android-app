@@ -1,32 +1,22 @@
 package com.bangkit.yogalyze.ui.profile
 
-
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.PopupWindow
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.datastore.core.DataStore
-import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.bangkit.yogalyze.MainViewModel
 import com.bangkit.yogalyze.R
 import com.bangkit.yogalyze.UserPreference
-import com.bangkit.yogalyze.databinding.ActivityAlarmBinding
 import com.bangkit.yogalyze.databinding.FragmentProfileBinding
 import com.bangkit.yogalyze.ui.about_us.AboutUsActivity
 import com.bangkit.yogalyze.ui.alarm.AlarmActivity
-import com.bangkit.yogalyze.ui.login.LoginActivity
 import com.bangkit.yogalyze.ui.personal_information.PersonalInformationActivity
 import com.bangkit.yogalyze.ui.welcome.WelcomeActivity
 import com.google.firebase.auth.FirebaseAuth

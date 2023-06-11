@@ -5,15 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bangkit.yogalyze.Event
-import com.bangkit.yogalyze.api.ApiConfig
-import com.bangkit.yogalyze.api.RegisterRequest
-import com.bangkit.yogalyze.api.response.RegisterResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.userProfileChangeRequest
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class RegisterViewModel : ViewModel() {
 

@@ -1,13 +1,18 @@
 package com.bangkit.yogalyze.ui.personal_information
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.DatePicker
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.datastore.core.DataStore
@@ -18,6 +23,9 @@ import com.bangkit.yogalyze.R
 import com.bangkit.yogalyze.UserPreference
 import com.bangkit.yogalyze.databinding.ActivityChangeDataPersonalInformationBinding
 import com.google.firebase.auth.FirebaseAuth
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "data")
 
@@ -25,13 +33,13 @@ class ChangeDataPersonalInformationActivity : AppCompatActivity(), View.OnClickL
 
     private lateinit var binding : ActivityChangeDataPersonalInformationBinding
     private val firebaseAuth = FirebaseAuth.getInstance()
-    private var Age: Int? = 0
+    private var BirthDate: String? = null
     private var Gender: String? = null
     private var Height: Double? = 0.0
     private var Weight: Double? = 0.0
-    private val personalInformationViewModel by viewModels<PersonalInformationViewModel> {
-        PersonalInformationViewModel.personalInformationViewModelFactory(UserPreference.getInstance(dataStore))
-    }
+    private val calendar = Calendar.getInstance()
+    private lateinit var selectedDate : String
+    private val personalInformationViewModel by viewModels<PersonalInformationViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +55,7 @@ class ChangeDataPersonalInformationActivity : AppCompatActivity(), View.OnClickL
 
         binding.saveData.setOnClickListener(this)
         binding.back.setOnClickListener(this)
+        binding.datePickerButton.setOnClickListener(this)
     }
 
     private fun setupViewModel() {
@@ -88,19 +97,56 @@ class ChangeDataPersonalInformationActivity : AppCompatActivity(), View.OnClickL
     override fun onClick(v: View) {
         when(v.id) {
             R.id.saveData -> {
-                Age = binding.age.text.toString().toInt()
-                Gender = binding.gender.text.toString()
+                BirthDate = binding.datePicker.text.toString()
                 Height = binding.height.text.toString().toDouble()
-                Weight = binding.height.text.toString().toDouble()
+                Weight = binding.weight.text.toString().toDouble()
+
+                val selectedGenderId = binding.radioGroupGender.checkedRadioButtonId
+
+                if (selectedGenderId != -1) {
+                    val selectedGenderRadioButton = findViewById<RadioButton>(selectedGenderId)
+                    Gender = selectedGenderRadioButton.text.toString()
+                } else {
+                    Gender = null
+                }
 
                 personalInformationViewModel.getToken().observe(this){
-                    personalInformationViewModel.saveData(it.toString(), Age, Gender, Height, Weight)
+                    personalInformationViewModel.saveData(it.toString(), birthDate = BirthDate, Gender, Weight, Height)
                 }
+
+                Log.d("databirthday", BirthDate.toString())
             }
             R.id.back -> {
                 val intent = Intent(this, PersonalInformationActivity::class.java)
                 startActivity(intent)
             }
+            R.id.datePickerButton -> {
+                showDatePickerDialog()
+            }
         }
+    }
+
+    private fun showDatePickerDialog() {
+        val dateSetListener =
+            DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, monthOfYear)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                selectedDate = dateFormat.format(calendar.time)
+
+                binding.datePicker.text = selectedDate
+            }
+
+        val datePickerDialog = DatePickerDialog(
+            this,
+            dateSetListener,
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+
+        datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
+        datePickerDialog.show()
     }
 }

@@ -21,17 +21,15 @@ import com.bangkit.yogalyze.databinding.ActivityLoginBinding
 import com.bangkit.yogalyze.databinding.ActivityPersonalInformationBinding
 import com.bangkit.yogalyze.ui.profile.ProfileFragment
 import com.google.firebase.auth.FirebaseAuth
-
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "data")
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding : ActivityPersonalInformationBinding
     private val firebaseAuth = FirebaseAuth.getInstance()
-    private val personalInformationViewModel by viewModels<PersonalInformationViewModel> {
-        PersonalInformationViewModel.personalInformationViewModelFactory(UserPreference.getInstance(dataStore))
-    }
-
+    private val personalInformationViewModel by viewModels<PersonalInformationViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,14 +61,40 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
 
         personalInformationViewModel.getToken().observe(this){
             personalInformationViewModel.getData(it)
-            personalInformationViewModel.userData.observe(this){
-                binding.age.text = it.age.toString()
-                binding.weight.text = it.weight.toString()
-                binding.height.text = it.height.toString()
-                binding.gender.text = it.gender.toString()
+            personalInformationViewModel.birthDateData.observe(this){
+                val age = getAgeFromDateOfBirth(it)
+                binding.age.text = age.toString()
+            }
+            personalInformationViewModel.genderData.observe(this){
+                binding.gender.text = it
+            }
+            personalInformationViewModel.heightData.observe(this){
+                binding.height.text = it
+            }
+            personalInformationViewModel.weightData.observe(this){
+                binding.weight.text = it
             }
         }
     }
+
+    fun getAgeFromDateOfBirth(dateString: String): Int {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val dateOfBirth = dateFormat.parse(dateString)
+
+        val calendar = Calendar.getInstance()
+        calendar.time = dateOfBirth
+
+        val today = Calendar.getInstance()
+
+        var age = today.get(Calendar.YEAR) - calendar.get(Calendar.YEAR)
+
+        if (today.get(Calendar.DAY_OF_YEAR) < calendar.get(Calendar.DAY_OF_YEAR)) {
+            age--
+        }
+
+        return age
+    }
+
 
     private fun setupView() {
         @Suppress("DEPRECATION")
@@ -92,15 +116,10 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.back -> {
-                // Navigasi dari Activity ke Fragment menggunakan FragmentManager dan FragmentTransaction
-                val fragmentManager = supportFragmentManager
-                val fragmentTransaction = fragmentManager.beginTransaction()
-                val fragment = ProfileFragment()
-
-                // Menambahkan Fragment ke container di dalam Activity
-                fragmentTransaction.replace(R.id.container, fragment)
-                fragmentTransaction.addToBackStack(null)
-                fragmentTransaction.commit()
+//                val intent = Intent(this, MainActivity::class.java)
+//                intent.putExtra(MainActivity.EXTRA_FRAGMENT, MainActivity.FRAGMENT_PROFILE)
+//                startActivity(intent)
+//                finish()
             }
         }
     }

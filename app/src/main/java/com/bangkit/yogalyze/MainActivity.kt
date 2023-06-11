@@ -13,11 +13,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bangkit.yogalyze.databinding.ActivityMainBinding
+import com.bangkit.yogalyze.ui.home.HomeFragment
+import com.bangkit.yogalyze.ui.profile.ProfileFragment
 import com.bangkit.yogalyze.ui.welcome.WelcomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -29,6 +32,8 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var currentFragment: Fragment
+
     private val mainViewModel by viewModels<MainViewModel> {
         MainViewModel.MainViewModelFactory(UserPreference.getInstance(dataStore))
     }
@@ -51,10 +56,36 @@ class MainActivity : AppCompatActivity() {
                 }
                 else {
                     binding.container.visibility = View.VISIBLE
+                    Log.d("tokenUser", it)
                 }
             }
+
+//            var firebaseUser = FirebaseAuth.getInstance().currentUser
+//
+//            firebaseUser!!.getIdToken(true)
+//                .addOnCompleteListener { task ->
+//                    if (task.isSuccessful) {
+//                        val idToken = task.result.token
+//                        Log.d("TokenUser", idToken.toString())
+//                    }
+//                }
+//                ?.addOnFailureListener { error ->
+//                    Log.e("LoginActivity", error.message.toString())
+//                }
         }
+
+        val fragmentToLoad = intent.getIntExtra(EXTRA_FRAGMENT, FRAGMENT_HOME)
+        if (fragmentToLoad == FRAGMENT_HOME) {
+            currentFragment = HomeFragment()
+        } else {
+            // Tambahkan case untuk fragment lain jika diperlukan
+            currentFragment = ProfileFragment()
+        }
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentFrame, currentFragment)
+            .commit()
     }
+
 
     private fun setupView() {
         @Suppress("DEPRECATION")
@@ -80,5 +111,11 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    companion object {
+        const val EXTRA_FRAGMENT = "extra_fragment"
+        const val FRAGMENT_HOME = 0
+        const val FRAGMENT_PROFILE = 1
     }
 }
