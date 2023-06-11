@@ -2,9 +2,12 @@ package com.bangkit.yogalyze.ui.score
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.datastore.core.DataStore
@@ -25,17 +28,15 @@ class ScoreActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.scoreTextView.text = intent.getStringExtra(SCORE)
+        val byteArray = intent.getByteArrayExtra(PHOTO)
+        val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
+        binding.ivUserPhoto.setImageBitmap(bitmap)
 
         setupView()
-        setupViewModel()
 
         binding.button.setOnClickListener(){
             super.onBackPressed()
         }
-    }
-
-    private fun setupViewModel() {
-
     }
 
     private fun setupView() {
@@ -51,7 +52,10 @@ class ScoreActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
+
+
     companion object{
         const val SCORE = "score"
+        const val PHOTO = "photo"
     }
 }

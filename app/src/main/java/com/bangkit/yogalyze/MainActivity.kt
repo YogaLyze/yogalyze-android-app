@@ -74,8 +74,25 @@ class MainActivity : AppCompatActivity() {
 //                }
         }
 
-        val fragmentToLoad = intent.getIntExtra(EXTRA_FRAGMENT, FRAGMENT_HOME)
-        if (fragmentToLoad == FRAGMENT_HOME) {
+//        val fragmentToLoad = intent.getIntExtra(EXTRA_FRAGMENT, FRAGMENT_HOME)
+//        if (fragmentToLoad == FRAGMENT_HOME) {
+//            currentFragment = HomeFragment()
+//        } else {
+//            // Tambahkan case untuk fragment lain jika diperlukan
+////            currentFragment = ProfileFragment()
+//        }
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.fragmentFrame, currentFragment)
+//            .commit()
+
+        val code = intent.getIntExtra(INTENT, 0)
+        if (code == 1){
+            intent1(code)
+        }
+    }
+
+    fun intent1(code : Int){
+        if (code == FRAGMENT_HOME) {
             currentFragment = HomeFragment()
         } else {
             // Tambahkan case untuk fragment lain jika diperlukan
@@ -117,5 +134,6 @@ class MainActivity : AppCompatActivity() {
         const val EXTRA_FRAGMENT = "extra_fragment"
         const val FRAGMENT_HOME = 0
         const val FRAGMENT_PROFILE = 1
+        const val INTENT = "intent"
     }
 }

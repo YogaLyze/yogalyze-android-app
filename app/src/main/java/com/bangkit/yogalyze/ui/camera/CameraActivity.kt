@@ -44,6 +44,7 @@ import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.common.FileUtil
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
+import java.io.ByteArrayOutputStream
 import java.util.Calendar
 
 class CameraActivity : AppCompatActivity() {
@@ -64,6 +65,7 @@ class CameraActivity : AppCompatActivity() {
     lateinit var cameraManager: CameraManager
     lateinit var textureView: TextureView
     lateinit var text: TextView
+    lateinit var userImage : Bitmap
     var bundle: Bundle? = null
     private var isProcessing = false
     private var countDownTimer: CountDownTimer? = null
@@ -106,6 +108,10 @@ class CameraActivity : AppCompatActivity() {
                 REQUIRED_PERMISSIONS,
                 REQUEST_CODE_PERMISSIONS
             )
+        }
+
+        binding.backButton.setOnClickListener(){
+            super.onBackPressed()
         }
 
         binding.poseImageView.setImageResource(intent.getIntExtra(EXTRA_IMAGE, 0))
@@ -227,6 +233,7 @@ class CameraActivity : AppCompatActivity() {
 
                 val scaledBitmap = Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, false)
                 imageView.setImageBitmap(scaledBitmap)
+                userImage = scaledBitmap
 
             }
 
@@ -305,8 +312,34 @@ class CameraActivity : AppCompatActivity() {
     private fun getScore() {
         val intent = Intent(this, ScoreActivity::class.java)
         intent.putExtra(ScoreActivity.SCORE, finalScore.toString())
+        val stream = ByteArrayOutputStream()
+        val image = resizeBitmap(userImage, 500)
+        image!!.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        val byteArray = stream.toByteArray()
+        intent.putExtra(ScoreActivity.PHOTO, byteArray)
         startActivity(intent)
     }
+
+    private fun resizeBitmap(bitmap: Bitmap, maxSize: Int): Bitmap? {
+        var width = bitmap.width
+        var height = bitmap.height
+
+        if (width <= 0 || height <= 0) {
+            return null
+        }
+
+        val bitmapRatio = width.toFloat() / height.toFloat()
+        if (bitmapRatio > 1) {
+            width = maxSize
+            height = (width / bitmapRatio).toInt()
+        } else {
+            height = maxSize
+            width = (height * bitmapRatio).toInt()
+        }
+
+        return Bitmap.createScaledBitmap(bitmap, width, height, true)
+    }
+
 
 
     private fun setupView() {

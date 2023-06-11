@@ -116,10 +116,9 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.back -> {
-//                val intent = Intent(this, MainActivity::class.java)
-//                intent.putExtra(MainActivity.EXTRA_FRAGMENT, MainActivity.FRAGMENT_PROFILE)
-//                startActivity(intent)
-//                finish()
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra(MainActivity.INTENT, 1)
+                finish()
             }
         }
     }
