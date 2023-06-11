@@ -62,9 +62,10 @@ class HistoryFragment : Fragment() {
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvHistory.layoutManager = layoutManager
 
-        val adapter = HistoryAdapter(data.reversed() as ArrayList<UserHistoryItem>)
+        val adapter = HistoryAdapter(ArrayList(data.reversed()))
         binding.rvHistory.adapter = adapter
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

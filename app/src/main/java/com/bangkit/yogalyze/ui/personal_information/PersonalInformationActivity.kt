@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -62,17 +63,28 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
         personalInformationViewModel.getToken().observe(this){
             personalInformationViewModel.getData(it)
             personalInformationViewModel.birthDateData.observe(this){
-                val age = getAgeFromDateOfBirth(it)
-                binding.age.text = age.toString()
+                Log.d("datadata", it)
+                if (it != "null"){
+
+                    val age = getAgeFromDateOfBirth(it)
+
+                    binding.age.text = age.toString()
+                }
             }
             personalInformationViewModel.genderData.observe(this){
-                binding.gender.text = it
+                if (it != "null"){
+                    binding.gender.text = it
+                }
             }
             personalInformationViewModel.heightData.observe(this){
-                binding.height.text = it
+                if (it != "null"){
+                    binding.height.text = it
+                }
             }
             personalInformationViewModel.weightData.observe(this){
-                binding.weight.text = it
+                if (it != "null"){
+                    binding.weight.text = it
+                }
             }
         }
     }

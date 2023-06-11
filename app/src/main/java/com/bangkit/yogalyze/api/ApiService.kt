@@ -33,14 +33,14 @@ interface ApiService {
 }
 
 data class HistoryDataRequest(
-    val yogaType: String,
-    val yogaPose: String,
+    val date: String,
     val score: Int? = 0,
-    val date: String
+    val yoga_pose: String,
+    val yoga_type: String
 )
 
 data class UpdateUserDataRequest(
-    val birthDate: String? = null,
+    val date_of_birth: String? = null,
     val gender: String? = null,
     val weight: Double? = 0.0,
     val height: Double? = 0.0

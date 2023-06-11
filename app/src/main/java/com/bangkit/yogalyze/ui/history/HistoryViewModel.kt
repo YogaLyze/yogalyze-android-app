@@ -30,25 +30,28 @@ class HistoryViewModel : ViewModel() {
     val statusMessage : LiveData<Event<String>> = _statusMessage
 
     fun saveHistory(token: String, yogaType : String, yogaPose: String, score: Int? = 0, date: String){
-        Log.d(TAG, "${yogaType} ${yogaPose} ${score} ${date}")
+        Log.d("dataHistoryy", "${yogaType} ${yogaPose} ${score} ${date}")
         _isLoading.value = true
-        var data = HistoryDataRequest(yogaType, yogaPose, score, date)
+        var data = HistoryDataRequest(date, score, yogaPose, yogaType)
         val client = ApiConfig.getApiService().addHistory(token, data)
         client.enqueue(object : retrofit2.Callback<AddHistoryResponse> {
             override fun onResponse(
                 call: Call<AddHistoryResponse>,
                 response: Response<AddHistoryResponse>
             ) {
-                if (response.isSuccessful) {
-                    _isLoading.value = false
-                    _isSaved.value = true
-                    Log.d(TAG, "successfully")
-
-                } else {
-                    _isLoading.value = false
-                    _isSaved.value = false
-                    Log.d(TAG, "failed")
-                }
+                _isLoading.value = false
+                _isSaved.value = true
+                Log.d("statusHistory", response.code().toString())
+//                if (response.isSuccessful) {
+//                    _isLoading.value = false
+//                    _isSaved.value = true
+//                    Log.d(TAG, "successfully")
+//
+//                } else {
+//                    _isLoading.value = false
+//                    _isSaved.value = false
+//                    Log.d(TAG, "failed")
+//                }
             }
 
             override fun onFailure(call: Call<AddHistoryResponse>, t: Throwable) {

@@ -1,5 +1,6 @@
 package com.bangkit.yogalyze.ui.login
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.bangkit.yogalyze.Event
 import com.bangkit.yogalyze.UserPreference
@@ -68,6 +69,7 @@ class LoginViewModel (private val pref: UserPreference) : ViewModel(){
                 _isLoading.value = false
             }
     }
+
 
     fun saveToken(token : String){
         viewModelScope.launch {

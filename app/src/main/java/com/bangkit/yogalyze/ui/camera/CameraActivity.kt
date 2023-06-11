@@ -306,6 +306,7 @@ class CameraActivity : AppCompatActivity() {
 
         historyViewModel.getToken().observe(this){
             historyViewModel.saveHistory(it, yoga_name, yoga_pose, final_score, date)
+            Log.d("dataHistory", "${yoga_name} ${yoga_pose} ${final_score} ${date}")
         }
     }
 

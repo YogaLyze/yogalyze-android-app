@@ -39,7 +39,7 @@ class HistoryAdapter(private val listHistory: ArrayList<UserHistoryItem>) : Recy
 
         if (history.yogaType.equals("Backpain")){
             holder.photo.setImageResource(R.drawable.backpain_yoga)
-        }else if (history.yogaType.equals("Anxienty")){
+        }else if (history.yogaType.equals("Anxiety")){
             holder.photo.setImageResource(R.drawable.anxiety_yoga)
         }else if (history.yogaType.equals("Flexibility")){
             holder.photo.setImageResource(R.drawable.flexibility_yoga)

@@ -111,9 +111,9 @@ class ChangeDataPersonalInformationActivity : AppCompatActivity(), View.OnClickL
                 }
 
                 personalInformationViewModel.getToken().observe(this){
-                    personalInformationViewModel.saveData(it.toString(), birthDate = BirthDate, Gender, Weight, Height)
-                }
+                    personalInformationViewModel.saveData(it.toString(), BirthDate, Gender, Weight, Height)
 
+                }
                 Log.d("databirthday", BirthDate.toString())
             }
             R.id.back -> {
@@ -132,7 +132,7 @@ class ChangeDataPersonalInformationActivity : AppCompatActivity(), View.OnClickL
                 calendar.set(Calendar.YEAR, year)
                 calendar.set(Calendar.MONTH, monthOfYear)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val dateFormat = SimpleDateFormat("yyyy-dd-MM", Locale.getDefault())
                 selectedDate = dateFormat.format(calendar.time)
 
                 binding.datePicker.text = selectedDate

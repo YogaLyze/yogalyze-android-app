@@ -37,10 +37,10 @@ class PersonalInformationViewModel : ViewModel() {
     private val _statusMessage = MutableLiveData<Event<String>>()
     val statusMessage : LiveData<Event<String>> = _statusMessage
 
-    fun saveData(token: String, birthDate: String?, gender: String?, height: Double?, weigth: Double?){
+    fun saveData(token: String, birth_of_date: String?, gender: String?, height: Double?, weigth: Double?){
         _isLoading.value = true
-        var data = UpdateUserDataRequest(birthDate, gender, height, weigth)
-        Log.d(TAG, data.toString())
+        var data = UpdateUserDataRequest(birth_of_date, gender, height, weigth)
+        Log.d("databirthday", birth_of_date.toString())
         val client = ApiConfig.getApiService().createUserProfile(token, data)
         client.enqueue(object : retrofit2.Callback<CreateUserProfileResponse> {
             override fun onResponse(
@@ -83,7 +83,7 @@ class PersonalInformationViewModel : ViewModel() {
                     _genderData.value = responseBody?.profile?.gender.toString()
                     _heightData.value = responseBody?.profile?.height.toString()
                     _weightData.value = responseBody?.profile?.weight.toString()
-                    Log.e(TAG, responseBody?.profile.toString())
+                    Log.d("dataBirth", birthDateData.value.toString())
                 } else {
                     _isLoading.value = false
                 }
