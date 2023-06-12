@@ -15,10 +15,11 @@ import com.bangkit.yogalyze.MainActivity
 import com.bangkit.yogalyze.R
 import com.bangkit.yogalyze.UserPreference
 import com.bangkit.yogalyze.databinding.ActivityResetPasswordBinding
+import com.bangkit.yogalyze.ui.login.LoginActivity
 import com.bangkit.yogalyze.ui.login.LoginViewModel
 import com.google.firebase.auth.FirebaseAuth
 
-class ResetPasswordActivity : AppCompatActivity(){
+class ResetPasswordActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding : ActivityResetPasswordBinding
     private lateinit var email : String
@@ -33,20 +34,8 @@ class ResetPasswordActivity : AppCompatActivity(){
 
         email = binding.emailEditText.text.toString()
 
-        binding.resetButton.setOnClickListener{
-            email = binding.emailEditText.text.toString()
-
-            when {
-                email.isEmpty() -> {
-                    binding.emailEditTextLayout.error = "Enter email"
-                    Log.d("lihatEmail", email)
-                }
-
-                else -> {
-                    resetPasswordViewModel.resetPassword(email)
-                }
-            }
-        }
+        binding.backButton.setOnClickListener(this)
+        binding.resetButton.setOnClickListener(this)
     }
 
     private fun setupViewModel() {
@@ -62,11 +51,13 @@ class ResetPasswordActivity : AppCompatActivity(){
             }
         })
 
-        resetPasswordViewModel.isLogin.observe(this){
+        resetPasswordViewModel.isSuccess.observe(this){
             if(it == true){
                 val intent = Intent(this, ResetPasswordSuccessActivity::class.java)
                 intent.putExtra(ResetPasswordSuccessActivity.EMAIL, email)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
+                finish()
             }
         }
     }
@@ -82,5 +73,28 @@ class ResetPasswordActivity : AppCompatActivity(){
             )
         }
         supportActionBar?.hide()
+    }
+
+    override fun onClick(v: View) {
+        when (v.id){
+            R.id.resetButton -> {
+                email = binding.emailEditText.text.toString()
+
+                when {
+                    email.isEmpty() -> {
+                        binding.emailEditTextLayout.error = "Enter email"
+                        Log.d("lihatEmail", email)
+                    }
+
+                    else -> {
+                        resetPasswordViewModel.resetPassword(email)
+                    }
+                }
+            }
+            R.id.backButton -> {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 }

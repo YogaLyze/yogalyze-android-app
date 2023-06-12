@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/yoga1" />
+            android:src="@drawable/low_lunge_pose"/>
 
         <TextView
             android:id="@+id/tv_yoga_title"

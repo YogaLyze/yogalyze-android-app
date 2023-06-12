@@ -13,8 +13,8 @@ class ResetPasswordViewModel: ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _isLogin = MutableLiveData<Boolean>()
-    val isLogin: LiveData<Boolean> = _isLogin
+    private val _isSuccess = MutableLiveData<Boolean>()
+    val isSuccess: LiveData<Boolean> = _isSuccess
 
     private val _statusMessage = MutableLiveData<Event<String>>()
     val statusMessage : LiveData<Event<String>> = _statusMessage
@@ -25,12 +25,12 @@ class ResetPasswordViewModel: ViewModel() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     _isLoading.value = false
-                    _isLogin.value = true
+                    _isSuccess.value = true
                 }
             }
             .addOnFailureListener {
                 _isLoading.value = false
-                _isLogin.value = false
+                _isSuccess.value = false
                 _statusMessage.value = Event("Password reset failed! Make sure you entered the correct email")
                 }
             }

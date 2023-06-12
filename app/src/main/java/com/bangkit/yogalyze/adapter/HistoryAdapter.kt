@@ -37,14 +37,48 @@ class HistoryAdapter(private val listHistory: ArrayList<UserHistoryItem>) : Recy
         holder.yogaName.text = history.yogaType
         holder.poseName.text = history.yogaPose
 
-        if (history.yogaType.equals("Backpain")){
-            holder.photo.setImageResource(R.drawable.backpain_yoga)
-        }else if (history.yogaType.equals("Anxiety")){
-            holder.photo.setImageResource(R.drawable.anxiety_yoga)
-        }else if (history.yogaType.equals("Flexibility")){
-            holder.photo.setImageResource(R.drawable.flexibility_yoga)
-        }else if (history.yogaType.equals("Neck Pain")){
-            holder.photo.setImageResource(R.drawable.neck_pain_yoga)
+//        if (history.yogaType.equals("Backpain")){
+//            holder.photo.setImageResource(R.drawable.backpain_yoga)
+//        }else if (history.yogaType.equals("Anxiety")){
+//            holder.photo.setImageResource(R.drawable.anxiety_yoga)
+//        }else if (history.yogaType.equals("Flexibility")){
+//            holder.photo.setImageResource(R.drawable.flexibility_yoga)
+//        }else if (history.yogaType.equals("Neck Pain")){
+//            holder.photo.setImageResource(R.drawable.neck_pain_yoga)
+//        }
+
+        if(history.yogaPose.equals("Downward Facing Dog Pose")){
+            holder.photo.setImageResource(R.drawable.downward_facing_dog_pose)
+        }else if (history.yogaPose.equals("Cobra Pose")){
+            holder.photo.setImageResource(R.drawable.cobra_pose)
+        }else if (history.yogaPose.equals("Bridge Pose")){
+            holder.photo.setImageResource(R.drawable.bridge_pose)
+        }else if (history.yogaPose.equals("Child Pose")){
+            holder.photo.setImageResource(R.drawable.child_pose)
+        }else if (history.yogaPose.equals("Locust Pose")){
+            holder.photo.setImageResource(R.drawable.locust_pose)
+        }else if (history.yogaPose.equals("Tree Pose")){
+            holder.photo.setImageResource(R.drawable.tree_pose)
+        }else if (history.yogaPose.equals("Triangle Pose")){
+            holder.photo.setImageResource(R.drawable.triangle_pose)
+        }else if (history.yogaPose.equals("Standing Forward Bend")){
+            holder.photo.setImageResource(R.drawable.standing_forward_bend_pose)
+        }else if (history.yogaPose.equals("Fish Pose")){
+            holder.photo.setImageResource(R.drawable.fish_pose)
+        }else if (history.yogaPose.equals("Plow Pose")){
+            holder.photo.setImageResource(R.drawable.plow_pose)
+        }else if (history.yogaPose.equals("Side Strecth Pose")){
+            holder.photo.setImageResource(R.drawable.side_stretch_pose)
+        }else if (history.yogaPose.equals("Bow Pose")){
+            holder.photo.setImageResource(R.drawable.bow_pose)
+        }else if (history.yogaPose.equals("Low Lunge Pose")){
+            holder.photo.setImageResource(R.drawable.low_lunge_pose)
+        }else if (history.yogaPose.equals("Cow Face Pose")){
+            holder.photo.setImageResource(R.drawable.cow_face_pose)
+        }else if (history.yogaPose.equals("Warrior II Pose")){
+            holder.photo.setImageResource(R.drawable.warrior_ii_pose)
+        }else if (history.yogaPose.equals("Corpse Pose")){
+            holder.photo.setImageResource(R.drawable.corpse_pose)
         }
     }
 }
