@@ -119,6 +119,7 @@ class ChangeDataPersonalInformationActivity : AppCompatActivity(), View.OnClickL
             R.id.back -> {
                 val intent = Intent(this, PersonalInformationActivity::class.java)
                 startActivity(intent)
+                finish()
             }
             R.id.datePickerButton -> {
                 showDatePickerDialog()

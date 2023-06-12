@@ -128,9 +128,11 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.backToProfile -> {
-                val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra(MainActivity.INTENT, 1)
-                startActivity(intent)
+//                val intent = Intent(this, MainActivity::class.java)
+//                intent.putExtra(MainActivity.INTENT, 1)
+//                startActivity(intent)
+//                finish()
+                super.onBackPressed()
             }
         }
     }

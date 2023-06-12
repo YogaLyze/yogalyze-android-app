@@ -78,8 +78,8 @@ class MainActivity : AppCompatActivity() {
 //        if (fragmentToLoad == FRAGMENT_HOME) {
 //            currentFragment = HomeFragment()
 //        } else {
-//            // Tambahkan case untuk fragment lain jika diperlukan
-////            currentFragment = ProfileFragment()
+////             Tambahkan case untuk fragment lain jika diperlukan
+//            currentFragment = ProfileFragment()
 //        }
 //        supportFragmentManager.beginTransaction()
 //            .replace(R.id.fragmentFrame, currentFragment)
