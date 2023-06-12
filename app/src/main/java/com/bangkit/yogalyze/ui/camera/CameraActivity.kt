@@ -321,6 +321,7 @@ class CameraActivity : AppCompatActivity() {
         val byteArray = stream.toByteArray()
         intent.putExtra(ScoreActivity.PHOTO, byteArray)
         startActivity(intent)
+        finish()
     }
 
     private fun resizeBitmap(bitmap: Bitmap, maxSize: Int): Bitmap? {
@@ -356,23 +357,6 @@ class CameraActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        // Hentikan countdown timer jika sedang berjalan
-        countDownTimer?.cancel()
-        // Tutup kamera jika sedang terbuka
-        if (::cameraDevice.isInitialized) {
-            cameraDevice.close()
-        }
-        // Hentikan thread handler
-        handler.looper.quitSafely()
-        // Hapus model TensorFlow Lite untuk mengosongkan sumber daya
-        model1.close()
-        model2.close()
-        model3.close()
-        model4.close()
     }
 
     companion object {

@@ -3,6 +3,8 @@ package com.bangkit.yogalyze.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -38,6 +40,10 @@ class PoseAdapter(private val listPose: ArrayList<Pose>) : RecyclerView.Adapter<
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(listPose[holder.adapterPosition])
         }
+
+        holder.button.setOnClickListener{
+            onItemClickCallback.onItemClicked(listPose[holder.adapterPosition])
+        }
     }
 
     class ListViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -45,6 +51,7 @@ class PoseAdapter(private val listPose: ArrayList<Pose>) : RecyclerView.Adapter<
         val tvDuration: TextView = itemView.findViewById(R.id.poseDuration)
         val image : ImageView = itemView.findViewById(R.id.poseImage)
         val tvShanskritName : TextView = itemView.findViewById(R.id.poseShanskritName)
+        val button : ImageButton = itemView.findViewById(R.id.buttonToCamera)
     }
 
     interface OnItemClickCallback {

@@ -88,14 +88,6 @@ class YogaDetailActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    override fun onBackPressed() {
-        // Ganti fragment dengan HomeFragment ketika tombol back ditekan
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentFrame, HomeFragment())
-            .commit()
-        super.onBackPressed()
-    }
-
     companion object {
         const val EXTRA_NAME = "extra_name"
         const val EXTRA_DURATION = "extra_duration"

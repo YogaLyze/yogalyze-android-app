@@ -18,7 +18,7 @@
         app:layout_constraintBaseline_toBottomOf="parent">
 
         <ImageButton
-            android:id="@+id/back"
+            android:id="@+id/backToProfile"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="24dp"

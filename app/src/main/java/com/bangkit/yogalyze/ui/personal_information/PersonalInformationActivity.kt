@@ -44,7 +44,7 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
         binding.email.text = firebaseAuth.currentUser!!.email
 
         binding.changeData.setOnClickListener(this)
-        binding.back.setOnClickListener(this)
+        binding.backToProfile.setOnClickListener(this)
     }
 
     private fun setupViewModel() {
@@ -127,10 +127,10 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
                 val intent = Intent(this, ChangeDataPersonalInformationActivity::class.java)
                 startActivity(intent)
             }
-            R.id.back -> {
+            R.id.backToProfile -> {
                 val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra(MainActivity.INTENT, 1)
-                finish()
+                startActivity(intent)
             }
         }
     }
