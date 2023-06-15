@@ -70,8 +70,9 @@ class ChangeDataPersonalInformationActivity : AppCompatActivity(), View.OnClickL
             if (it == true){
                 val intent = Intent(this, PersonalInformationActivity::class.java)
                 startActivity(intent)
+                finish()
             }
-            finish()
+
         }
     }
 
@@ -122,7 +123,9 @@ class ChangeDataPersonalInformationActivity : AppCompatActivity(), View.OnClickL
                 }
             }
             R.id.back -> {
-                super.onBackPressed()
+                val intent = Intent(this, PersonalInformationActivity::class.java)
+                startActivity(intent)
+                finish()
 
             }
             R.id.datePickerButton -> {

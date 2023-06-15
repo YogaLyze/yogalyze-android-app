@@ -31,14 +31,15 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityPersonalInformationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupView()
         setupViewModel()
+        setupView()
 
         binding.name.text = firebaseAuth.currentUser!!.displayName
         binding.email.text = firebaseAuth.currentUser!!.email
 
         binding.changeData.setOnClickListener(this)
         binding.backToProfile.setOnClickListener(this)
+
     }
 
     private fun setupViewModel() {
@@ -122,6 +123,7 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
             R.id.changeData -> {
                 val intent = Intent(this, ChangeDataPersonalInformationActivity::class.java)
                 startActivity(intent)
+                finish()
             }
             R.id.backToProfile -> {
                 super.onBackPressed()
