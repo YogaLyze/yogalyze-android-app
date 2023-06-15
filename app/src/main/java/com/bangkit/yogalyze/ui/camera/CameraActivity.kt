@@ -71,6 +71,7 @@ class CameraActivity : AppCompatActivity() {
     private var index : Int? = 0
     private var finalScore: Int? = 0
     private var isPermissionGranted = false
+    private var isCountdownRunning = false
     private val historyViewModel by viewModels<HistoryViewModel>()
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
@@ -115,7 +116,7 @@ class CameraActivity : AppCompatActivity() {
         }
 
         binding.backButton.setOnClickListener {
-            super.onBackPressed()
+            onBackPressed()
         }
 
         binding.poseImageView.setImageResource(intent.getIntExtra(EXTRA_IMAGE, 0))
@@ -284,23 +285,43 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun startCountdownTimer() {
-        val totalTimeInMillis = duration*60000 // Waktu total dalam milidetik (misalnya 60 detik)
+        if (!isCountdownRunning) { // Tambahkan pengecekan isCountdownRunning
+            val totalTimeInMillis = duration * 60000 // Waktu total dalam milidetik (misalnya 60 detik)
 
-        countDownTimer = object : CountDownTimer(totalTimeInMillis.toLong(), 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                val seconds = millisUntilFinished / 1000
-                // Update tampilan setiap detik
-                // Misalnya: textView.text = "Sisa waktu: $seconds detik"
-                binding.timer.text = seconds.toString()
+            countDownTimer = object : CountDownTimer(totalTimeInMillis.toLong(), 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    val seconds = millisUntilFinished / 1000
+                    // Update tampilan setiap detik
+                    // Misalnya: textView.text = "Sisa waktu: $seconds detik"
+                    binding.timer.text = seconds.toString()
+                }
+
+                override fun onFinish() {
+                    saveHistory(yogaName, poseName, finalScore!!)
+                    getScore()
+                }
             }
 
-            override fun onFinish() {
-                saveHistory(yogaName, poseName, finalScore!!)
-                getScore()
-            }
+            countDownTimer?.start()
+            isCountdownRunning = true
         }
+    }
 
-        countDownTimer?.start()
+    // Tambahkan metode stopCountdownTimer()
+    private fun stopCountdownTimer() {
+        countDownTimer?.cancel()
+        isCountdownRunning = false
+    }
+
+    // Ubah implementasi metode onBackPressed()
+    override fun onBackPressed() {
+        if (isCountdownRunning) {
+            stopCountdownTimer()
+            Toast.makeText(this, "Countdown timer stopped", Toast.LENGTH_SHORT).show()
+            super.onBackPressed()
+        } else {
+            super.onBackPressed()
+        }
     }
 
     private fun saveHistory(yoga_name : String, yoga_pose : String, final_score : Int? = 0) {
