@@ -31,7 +31,6 @@ class ScoreActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
