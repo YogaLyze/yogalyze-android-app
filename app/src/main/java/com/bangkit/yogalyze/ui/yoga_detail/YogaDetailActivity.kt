@@ -46,7 +46,7 @@ class YogaDetailActivity : AppCompatActivity() {
 
         binding.backButton.setOnClickListener(){
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra(MainActivity.EXTRA_FRAGMENT, MainActivity.FRAGMENT_HOME)
+            intent.putExtra(MainActivity.INTENT, 0)
             startActivity(intent)
             finish()
         }

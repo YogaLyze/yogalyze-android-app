@@ -32,7 +32,6 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var currentFragment: Fragment
 
     private val mainViewModel by viewModels<MainViewModel> {
         MainViewModel.MainViewModelFactory(UserPreference.getInstance(dataStore))
@@ -53,54 +52,12 @@ class MainActivity : AppCompatActivity() {
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(intent)
                     finish()
-                }
-                else {
+                } else {
                     binding.container.visibility = View.VISIBLE
                     Log.d("tokenUser", it)
                 }
             }
-
-//            var firebaseUser = FirebaseAuth.getInstance().currentUser
-//
-//            firebaseUser!!.getIdToken(true)
-//                .addOnCompleteListener { task ->
-//                    if (task.isSuccessful) {
-//                        val idToken = task.result.token
-//                        Log.d("TokenUser", idToken.toString())
-//                    }
-//                }
-//                ?.addOnFailureListener { error ->
-//                    Log.e("LoginActivity", error.message.toString())
-//                }
         }
-
-//        val fragmentToLoad = intent.getIntExtra(EXTRA_FRAGMENT, FRAGMENT_HOME)
-//        if (fragmentToLoad == FRAGMENT_HOME) {
-//            currentFragment = HomeFragment()
-//        } else {
-////             Tambahkan case untuk fragment lain jika diperlukan
-//            currentFragment = ProfileFragment()
-//        }
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.fragmentFrame, currentFragment)
-//            .commit()
-
-        val code = intent.getIntExtra(INTENT, 0)
-        if (code == 1){
-            intent1(code)
-        }
-    }
-
-    fun intent1(code : Int){
-        if (code == FRAGMENT_HOME) {
-            currentFragment = HomeFragment()
-        } else {
-            // Tambahkan case untuk fragment lain jika diperlukan
-            currentFragment = ProfileFragment()
-        }
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentFrame, currentFragment)
-            .commit()
     }
 
 

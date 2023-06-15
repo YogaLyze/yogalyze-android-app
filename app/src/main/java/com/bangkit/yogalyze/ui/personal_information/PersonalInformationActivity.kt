@@ -126,12 +126,9 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
             R.id.changeData -> {
                 val intent = Intent(this, ChangeDataPersonalInformationActivity::class.java)
                 startActivity(intent)
+                finish()
             }
             R.id.backToProfile -> {
-//                val intent = Intent(this, MainActivity::class.java)
-//                intent.putExtra(MainActivity.INTENT, 1)
-//                startActivity(intent)
-//                finish()
                 super.onBackPressed()
             }
         }

@@ -133,7 +133,7 @@ class ChangeDataPersonalInformationActivity : AppCompatActivity(), View.OnClickL
                 calendar.set(Calendar.YEAR, year)
                 calendar.set(Calendar.MONTH, monthOfYear)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                val dateFormat = SimpleDateFormat("yyyy-dd-MM", Locale.getDefault())
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 selectedDate = dateFormat.format(calendar.time)
 
                 binding.datePicker.text = selectedDate

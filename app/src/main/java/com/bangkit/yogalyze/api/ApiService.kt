@@ -42,6 +42,6 @@ data class HistoryDataRequest(
 data class UpdateUserDataRequest(
     val date_of_birth: String? = null,
     val gender: String? = null,
-    val weight: Double? = 0.0,
-    val height: Double? = 0.0
+    val height: Double? = 0.0,
+    val weight: Double? = 0.0
 )
