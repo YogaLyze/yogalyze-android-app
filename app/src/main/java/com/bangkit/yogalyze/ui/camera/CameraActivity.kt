@@ -116,6 +116,7 @@ class CameraActivity : AppCompatActivity() {
 
         binding.backButton.setOnClickListener {
             super.onBackPressed()
+            finish()
         }
 
         binding.poseImageView.setImageResource(intent.getIntExtra(EXTRA_IMAGE, 0))
