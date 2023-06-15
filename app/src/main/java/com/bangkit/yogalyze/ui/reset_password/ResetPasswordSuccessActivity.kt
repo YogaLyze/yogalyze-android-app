@@ -1,6 +1,7 @@
 package com.bangkit.yogalyze.ui.reset_password
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,6 +32,8 @@ class ResetPasswordSuccessActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setupView() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())

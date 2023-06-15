@@ -2,6 +2,7 @@ package com.bangkit.yogalyze
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -13,19 +14,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bangkit.yogalyze.databinding.ActivityMainBinding
-import com.bangkit.yogalyze.ui.home.HomeFragment
-import com.bangkit.yogalyze.ui.profile.ProfileFragment
 import com.bangkit.yogalyze.ui.welcome.WelcomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "data")
 
@@ -47,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.getToken().observe(this) {
             if (it != null) {
-                if (it.isEmpty() == true) {
+                if (it.isEmpty()) {
                     val intent = Intent(this, WelcomeActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(intent)
@@ -62,6 +57,8 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setupView() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
@@ -88,9 +85,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_FRAGMENT = "extra_fragment"
-        const val FRAGMENT_HOME = 0
-        const val FRAGMENT_PROFILE = 1
         const val INTENT = "intent"
     }
 }

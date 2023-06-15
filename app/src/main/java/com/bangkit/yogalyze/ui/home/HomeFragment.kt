@@ -1,6 +1,5 @@
 package com.bangkit.yogalyze.ui.home
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,13 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bangkit.yogalyze.UserPreference
 import com.bangkit.yogalyze.adapter.YogaAdapter
 import com.bangkit.yogalyze.databinding.FragmentHomeBinding
 import com.bangkit.yogalyze.model.Yoga
@@ -23,14 +17,11 @@ import com.bangkit.yogalyze.ui.yoga_detail.YogaDetailActivity
 import com.bangkit.yogalyze.ui.yogalyze_video.YogalyzeVideoActivity
 import com.google.firebase.auth.FirebaseAuth
 
-
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "data")
-
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    val yogaAdapter = YogaAdapter(YogaData.yoga)
+    private val yogaAdapter = YogaAdapter(YogaData.yoga)
     private val firebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreateView(
@@ -55,12 +46,12 @@ class HomeFragment : Fragment() {
             }
         })
 
-        binding.continueButton.setOnClickListener(){
+        binding.continueButton.setOnClickListener {
             val intent = Intent(requireActivity(), YogalyzeVideoActivity::class.java)
             startActivity(intent)
         }
 
-        binding.userNameTextView?.text = firebaseAuth?.currentUser?.displayName
+        binding.userNameTextView.text = firebaseAuth.currentUser?.displayName
 
         return root
     }

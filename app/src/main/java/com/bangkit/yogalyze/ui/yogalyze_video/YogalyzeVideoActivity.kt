@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.bangkit.yogalyze.ui.yogalyze_video
 
 import android.content.Intent
@@ -10,7 +12,6 @@ import android.view.WindowManager
 import com.bangkit.yogalyze.MainActivity
 import com.bangkit.yogalyze.R
 import com.bangkit.yogalyze.databinding.ActivityYogalyzeVideoBinding
-import com.bangkit.yogalyze.ui.home.HomeFragment
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
@@ -31,7 +32,7 @@ class YogalyzeVideoActivity : AppCompatActivity() {
         setupView()
         setupVideoView()
 
-        binding.closeButton.setOnClickListener(){
+        binding.closeButton.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             player.release()

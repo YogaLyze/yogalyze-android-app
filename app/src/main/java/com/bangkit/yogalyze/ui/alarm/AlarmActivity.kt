@@ -1,6 +1,7 @@
 package com.bangkit.yogalyze.ui.alarm
 
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,6 +21,7 @@ import java.util.Locale
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "data")
 
+@Suppress("DEPRECATION")
 class AlarmActivity : AppCompatActivity(), TimePickerFragment.DialogTimeListener, View.OnClickListener {
 
     private var binding : ActivityAlarmBinding? = null
@@ -72,12 +74,14 @@ class AlarmActivity : AppCompatActivity(), TimePickerFragment.DialogTimeListener
                 binding?.tvRepeatingTime?.text = "Select the desired time"
             }
             R.id.closeButton -> {
-                onBackPressed()
+                super.onBackPressed()
             }
         }
     }
 
     private fun setupView() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())

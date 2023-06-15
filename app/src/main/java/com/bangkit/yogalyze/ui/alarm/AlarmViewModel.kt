@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.bangkit.yogalyze.UserPreference
 import kotlinx.coroutines.launch
 
+@Suppress("UNCHECKED_CAST")
 class AlarmViewModel (private val pref: UserPreference): ViewModel(){
     fun saveTime(time : String){
         viewModelScope.launch {

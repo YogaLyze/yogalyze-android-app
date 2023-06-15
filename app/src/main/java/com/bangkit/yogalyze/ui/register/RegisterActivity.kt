@@ -1,6 +1,7 @@
 package com.bangkit.yogalyze.ui.register
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,8 +18,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
 
+@Suppress("DEPRECATION")
 class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityRegisterBinding
@@ -44,7 +45,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("587913373658-4cmjckncas3clec372iv2bmj3mej499j.apps.googleusercontent.com")
             .requestEmail()
-            .build();
+            .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
     }
@@ -71,6 +72,8 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setupView() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())

@@ -2,6 +2,7 @@ package com.bangkit.yogalyze.ui.yoga_detail
 
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,18 +11,11 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.yogalyze.MainActivity
-import com.bangkit.yogalyze.R
 import com.bangkit.yogalyze.adapter.PoseAdapter
-import com.bangkit.yogalyze.adapter.YogaAdapter
 import com.bangkit.yogalyze.databinding.ActivityYogaDetailBinding
 import com.bangkit.yogalyze.model.Pose
-import com.bangkit.yogalyze.model.PoseData
-import com.bangkit.yogalyze.model.Yoga
-import com.bangkit.yogalyze.model.YogaData
 import com.bangkit.yogalyze.ui.camera.CameraActivity
-import com.bangkit.yogalyze.ui.home.HomeFragment
-
-
+@Suppress("DEPRECATION")
 class YogaDetailActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityYogaDetailBinding
@@ -40,7 +34,7 @@ class YogaDetailActivity : AppCompatActivity() {
         binding.yogaDescription.text = intent.getStringExtra(EXTRA_DESCRIPTION)
         binding.yogaImage.setImageResource(intent.getIntExtra(EXTRA_IMAGE, 0))
 
-        showPoses(intent.getParcelableArrayListExtra<Pose>(EXTRA_POSES))
+        showPoses(intent.getParcelableArrayListExtra(EXTRA_POSES))
 
         Log.d("yogaPose", intent.getParcelableArrayListExtra<Pose>(EXTRA_POSES).toString())
 
@@ -76,6 +70,8 @@ class YogaDetailActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())

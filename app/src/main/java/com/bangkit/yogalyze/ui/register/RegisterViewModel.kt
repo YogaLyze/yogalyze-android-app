@@ -33,7 +33,7 @@ class RegisterViewModel : ViewModel() {
                     val user = task.result.user
                     user!!.updateProfile(userUpdateProfile)
                         .addOnCompleteListener {
-                            user!!.sendEmailVerification()
+                            user.sendEmailVerification()
                                 .addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
                                         _isLoading.value = false

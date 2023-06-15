@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -28,11 +29,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import com.bangkit.yogalyze.R
-import com.bangkit.yogalyze.UserPreference
 import com.bangkit.yogalyze.databinding.ActivityCameraBinding
 import com.bangkit.yogalyze.ml.Anxiety
 import com.bangkit.yogalyze.ml.BackPain
@@ -47,6 +44,7 @@ import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.io.ByteArrayOutputStream
 import java.util.Calendar
 
+@Suppress("DEPRECATION")
 class CameraActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCameraBinding
@@ -72,6 +70,7 @@ class CameraActivity : AppCompatActivity() {
     private var countDownTimer: CountDownTimer? = null
     private var index : Int? = 0
     private var finalScore: Int? = 0
+    private var isPermissionGranted = false
     private val historyViewModel by viewModels<HistoryViewModel>()
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
@@ -85,13 +84,15 @@ class CameraActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            if (!allPermissionsGranted()) {
+            if (allPermissionsGranted()) {
+                isPermissionGranted = true
+                openCamera()
+            } else {
                 Toast.makeText(
                     this,
-                    "Not getting permission",
+                    "Permission not granted",
                     Toast.LENGTH_SHORT
                 ).show()
-                finish()
             }
         }
     }
@@ -109,9 +110,11 @@ class CameraActivity : AppCompatActivity() {
                 REQUIRED_PERMISSIONS,
                 REQUEST_CODE_PERMISSIONS
             )
+        } else {
+            isPermissionGranted = true
         }
 
-        binding.backButton.setOnClickListener(){
+        binding.backButton.setOnClickListener {
             super.onBackPressed()
         }
 
@@ -244,38 +247,40 @@ class CameraActivity : AppCompatActivity() {
     }
 
     @SuppressLint("MissingPermission")
-    fun openCamera(){
-        cameraManager.openCamera(cameraManager.cameraIdList[1], object:CameraDevice.StateCallback(){
-            override fun onOpened(camera: CameraDevice) {
-                cameraDevice = camera
+    fun openCamera() {
+        if (isPermissionGranted) {
+            cameraManager.openCamera(cameraManager.cameraIdList[1], object : CameraDevice.StateCallback() {
+                override fun onOpened(camera: CameraDevice) {
+                    cameraDevice = camera
 
-                val surfaceTexture = textureView.surfaceTexture
-                val surface = Surface(surfaceTexture)
+                    val surfaceTexture = textureView.surfaceTexture
+                    val surface = Surface(surfaceTexture)
 
-                val captureRequest = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
-                captureRequest.addTarget(surface)
+                    val captureRequest = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
+                    captureRequest.addTarget(surface)
 
-                cameraDevice.createCaptureSession(listOf(surface), object: CameraCaptureSession.StateCallback(){
-                    override fun onConfigured(session: CameraCaptureSession) {
-                        session.setRepeatingRequest(captureRequest.build(), null, null)
-                    }
+                    cameraDevice.createCaptureSession(listOf(surface), object: CameraCaptureSession.StateCallback(){
+                        override fun onConfigured(session: CameraCaptureSession) {
+                            session.setRepeatingRequest(captureRequest.build(), null, null)
+                        }
 
-                    override fun onConfigureFailed(session: CameraCaptureSession) {
+                        override fun onConfigureFailed(session: CameraCaptureSession) {
 
-                    }
-                }, handler)
-            }
+                        }
+                    }, handler)
+                }
 
-            override fun onDisconnected(camera: CameraDevice) {
+                override fun onDisconnected(camera: CameraDevice) {
 
-            }
+                }
 
-            override fun onError(camera: CameraDevice, error: Int) {
+                override fun onError(camera: CameraDevice, error: Int) {
 
-            }
+                }
 
-        }, handler)
+            }, handler)
 
+        }
     }
 
     private fun startCountdownTimer() {
@@ -304,7 +309,7 @@ class CameraActivity : AppCompatActivity() {
         val month: Int = calendar.get(Calendar.MONTH) + 1 // Perhatikan penambahan 1 karena indeks bulan dimulai dari 0
         val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
 
-        var date = "$year-$month-$day"
+        val date = "$year-$month-$day"
 
         historyViewModel.getToken().observe(this){
             historyViewModel.saveHistory(it, yoga_name, yoga_pose, final_score, date)
@@ -347,6 +352,8 @@ class CameraActivity : AppCompatActivity() {
 
 
     private fun setupView() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())

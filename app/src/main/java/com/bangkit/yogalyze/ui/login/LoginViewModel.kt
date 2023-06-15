@@ -1,6 +1,5 @@
 package com.bangkit.yogalyze.ui.login
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.bangkit.yogalyze.Event
 import com.bangkit.yogalyze.UserPreference
@@ -8,9 +7,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.launch
 
+@Suppress("UNCHECKED_CAST")
 class LoginViewModel (private val pref: UserPreference) : ViewModel(){
 
-    var firebaseAuth = FirebaseAuth.getInstance()
+    private var firebaseAuth = FirebaseAuth.getInstance()
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -42,19 +42,6 @@ class LoginViewModel (private val pref: UserPreference) : ViewModel(){
                 _statusMessage.value = Event("Login failed! Please ensure the email and password are valid.")
             }
     }
-    fun forgetPassword(email: String) {
-        _isLoading.value = true
-        firebaseAuth.sendPasswordResetEmail(email)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    _isLoading.value = false
-                    _statusMessage.value = Event("Reset Password has been sent to your email")
-                }
-            }
-            .addOnFailureListener {
-                _isLoading.value = false
-            }
-    }
 
     fun firebaseAuthWithGoogle(idToken: String) {
         _isLoading.value = true
@@ -70,7 +57,6 @@ class LoginViewModel (private val pref: UserPreference) : ViewModel(){
             }
     }
 
-
     fun saveToken(token : String){
         viewModelScope.launch {
             pref.login(token)
@@ -84,7 +70,4 @@ class LoginViewModel (private val pref: UserPreference) : ViewModel(){
         }
     }
 
-    companion object{
-        private const val TAG = "LoginViewModel"
-    }
 }

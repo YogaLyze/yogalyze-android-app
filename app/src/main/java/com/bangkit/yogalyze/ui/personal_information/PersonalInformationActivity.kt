@@ -1,7 +1,7 @@
 package com.bangkit.yogalyze.ui.personal_information
 
-import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,21 +11,15 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.Observer
-import com.bangkit.yogalyze.MainActivity
 import com.bangkit.yogalyze.R
-import com.bangkit.yogalyze.UserPreference
-import com.bangkit.yogalyze.databinding.ActivityLoginBinding
 import com.bangkit.yogalyze.databinding.ActivityPersonalInformationBinding
-import com.bangkit.yogalyze.ui.profile.ProfileFragment
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+@Suppress("DEPRECATION")
 class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding : ActivityPersonalInformationBinding
@@ -53,9 +47,9 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         personalInformationViewModel.statusMessage.observe(this, Observer {
-            it.getContentIfNotHandled().let {
-                if (it != null) {
-                    Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            it.getContentIfNotHandled().let { message ->
+                if (message != null) {
+                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -94,7 +88,7 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
         val dateOfBirth = dateFormat.parse(dateString)
 
         val calendar = Calendar.getInstance()
-        calendar.time = dateOfBirth
+        calendar.time = dateOfBirth!!
 
         val today = Calendar.getInstance()
 
@@ -109,6 +103,8 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
 
 
     private fun setupView() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
@@ -126,7 +122,6 @@ class PersonalInformationActivity : AppCompatActivity(), View.OnClickListener {
             R.id.changeData -> {
                 val intent = Intent(this, ChangeDataPersonalInformationActivity::class.java)
                 startActivity(intent)
-                finish()
             }
             R.id.backToProfile -> {
                 super.onBackPressed()

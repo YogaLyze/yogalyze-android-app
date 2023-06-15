@@ -2,6 +2,7 @@ package com.bangkit.yogalyze.ui.login
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -25,12 +26,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.signin.internal.SignInClientImpl
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "data")
 
+@Suppress("DEPRECATION")
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityLoginBinding
@@ -57,7 +57,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("587913373658-4cmjckncas3clec372iv2bmj3mej499j.apps.googleusercontent.com")
             .requestEmail()
-            .build();
+            .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
     }
@@ -68,16 +68,16 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         loginViewModel.statusMessage.observe(this, Observer {
-            it.getContentIfNotHandled().let {
-                if (it != null) {
-                    Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            it.getContentIfNotHandled().let { message ->
+                if (message != null) {
+                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                 }
             }
         })
 
         loginViewModel.isLogin.observe(this) {
             if (it == true) {
-                var firebaseUser = FirebaseAuth.getInstance().currentUser
+                val firebaseUser = FirebaseAuth.getInstance().currentUser
 
                 firebaseUser!!.getIdToken(true)
                     .addOnCompleteListener { task ->
@@ -92,7 +92,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                             finish()
                         }
                     }
-                    ?.addOnFailureListener { error ->
+                    .addOnFailureListener { error ->
                         Log.e("LoginActivity", error.message.toString())
                     }
             }
@@ -100,6 +100,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setupView() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())

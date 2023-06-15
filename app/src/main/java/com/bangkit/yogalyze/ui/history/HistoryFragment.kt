@@ -1,21 +1,13 @@
 package com.bangkit.yogalyze.ui.history
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bangkit.yogalyze.UserPreference
 import com.bangkit.yogalyze.adapter.HistoryAdapter
-import com.bangkit.yogalyze.api.response.GetHistoryResponse
 import com.bangkit.yogalyze.api.response.UserHistoryItem
 import com.bangkit.yogalyze.databinding.FragmentHistoryBinding
 
@@ -50,9 +42,9 @@ class HistoryFragment : Fragment() {
 
         historyViewModel.getToken().observe(requireActivity()){
             historyViewModel.getHistory(it)
-            historyViewModel.historyData.observe(viewLifecycleOwner){
-                if(it != null){
-                    setHistoryData(it)
+            historyViewModel.historyData.observe(viewLifecycleOwner){ data ->
+                if(data != null){
+                    setHistoryData(data)
                 }
             }
         }

@@ -39,16 +39,11 @@
             android:exported="false" />
         <activity
             android:name=".ui.yogalyze_video.YogalyzeVideoActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.camera.CameraActivity"
-            android:exported="true">
-
-<!--             <intent-filter>-->
-<!--             <action android:name="android.intent.action.MAIN" />-->
-<!--             <category android:name="android.intent.category.LAUNCHER" />-->
-<!--             </intent-filter>-->
-        </activity>
+            android:exported="true"/>
         <activity
             android:name=".ui.score.ScoreActivity"
             android:exported="false"

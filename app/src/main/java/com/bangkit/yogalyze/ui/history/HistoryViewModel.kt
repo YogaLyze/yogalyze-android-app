@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bangkit.yogalyze.Event
-import com.bangkit.yogalyze.UserPreference
 import com.bangkit.yogalyze.api.ApiConfig
 import com.bangkit.yogalyze.api.HistoryDataRequest
 import com.bangkit.yogalyze.api.response.AddHistoryResponse
@@ -20,9 +19,6 @@ class HistoryViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _isSaved = MutableLiveData<Boolean>()
-    val isSaved: LiveData<Boolean> = _isSaved
-
     private val _historyData = MutableLiveData<List<UserHistoryItem>>()
     val historyData: LiveData<List<UserHistoryItem>> = _historyData
 
@@ -32,7 +28,7 @@ class HistoryViewModel : ViewModel() {
     fun saveHistory(token: String, yogaType : String, yogaPose: String, score: Int? = 0, date: String){
         Log.d("dataHistoryy", "${yogaType} ${yogaPose} ${score} ${date}")
         _isLoading.value = true
-        var data = HistoryDataRequest(date, score, yogaPose, yogaType)
+        val data = HistoryDataRequest(date, score, yogaPose, yogaType)
         val client = ApiConfig.getApiService().addHistory(token, data)
         client.enqueue(object : retrofit2.Callback<AddHistoryResponse> {
             override fun onResponse(
@@ -40,18 +36,6 @@ class HistoryViewModel : ViewModel() {
                 response: Response<AddHistoryResponse>
             ) {
                 _isLoading.value = false
-                _isSaved.value = true
-                Log.d("statusHistory", response.code().toString())
-//                if (response.isSuccessful) {
-//                    _isLoading.value = false
-//                    _isSaved.value = true
-//                    Log.d(TAG, "successfully")
-//
-//                } else {
-//                    _isLoading.value = false
-//                    _isSaved.value = false
-//                    Log.d(TAG, "failed")
-//                }
             }
 
             override fun onFailure(call: Call<AddHistoryResponse>, t: Throwable) {
@@ -75,9 +59,6 @@ class HistoryViewModel : ViewModel() {
                     if(a != "[]"){
                         _historyData.value = response.body()?.userHistory as List<UserHistoryItem>
                     }
-                    Log.d(TAG, "success")
-                    Log.d(TAG, response.body()!!.userHistory.toString())
-                    Log.d(TAG, historyData.value.toString())
 
                 } else {
                     _isLoading.value = false
@@ -94,8 +75,8 @@ class HistoryViewModel : ViewModel() {
     }
 
     fun getToken() : LiveData<String> {
-        var firebaseUser = FirebaseAuth.getInstance().currentUser
-        var token = MutableLiveData<String>()
+        val firebaseUser = FirebaseAuth.getInstance().currentUser
+        val token = MutableLiveData<String>()
 
 
         firebaseUser!!.getIdToken(true)
@@ -106,7 +87,7 @@ class HistoryViewModel : ViewModel() {
                     Log.d("TokenUser", idToken)
                 }
             }
-            ?.addOnFailureListener { error ->
+            .addOnFailureListener { error ->
                 Log.e("LoginActivity", error.message.toString())
             }
 

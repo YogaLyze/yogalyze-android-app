@@ -1,23 +1,14 @@
 package com.bangkit.yogalyze.ui.score
 
-import android.content.Context
-import android.content.Intent
-import android.graphics.Bitmap
+import android.content.pm.ActivityInfo
 import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.WindowInsets
 import android.view.WindowManager
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
-import com.bangkit.yogalyze.R
 import com.bangkit.yogalyze.databinding.ActivityScoreBinding
-import com.bangkit.yogalyze.ui.yoga_detail.YogaDetailActivity
-
-
+@Suppress("DEPRECATION")
 class ScoreActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityScoreBinding
@@ -40,6 +31,8 @@ class ScoreActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())

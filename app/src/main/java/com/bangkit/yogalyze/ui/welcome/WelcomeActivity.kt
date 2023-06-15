@@ -1,11 +1,11 @@
 package com.bangkit.yogalyze.ui.welcome
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowManager
 import com.bangkit.yogalyze.R
@@ -29,6 +29,8 @@ class WelcomeActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setupView() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())

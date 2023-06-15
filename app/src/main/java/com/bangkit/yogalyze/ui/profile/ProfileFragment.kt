@@ -25,7 +25,6 @@ import java.util.Date
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "data")
 
-@Suppress("UNREACHABLE_CODE")
 class ProfileFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentProfileBinding? = null

@@ -1,6 +1,7 @@
 package com.bangkit.yogalyze.ui.reset_password
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,13 +12,9 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import com.bangkit.yogalyze.MainActivity
 import com.bangkit.yogalyze.R
-import com.bangkit.yogalyze.UserPreference
 import com.bangkit.yogalyze.databinding.ActivityResetPasswordBinding
 import com.bangkit.yogalyze.ui.login.LoginActivity
-import com.bangkit.yogalyze.ui.login.LoginViewModel
-import com.google.firebase.auth.FirebaseAuth
 
 class ResetPasswordActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -63,6 +60,8 @@ class ResetPasswordActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setupView() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
