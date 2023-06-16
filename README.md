@@ -12,3 +12,23 @@ YogaLyze is an Android application developed as a Bangkit Capstone project. It i
 - Exercise Alarm Notifications: Set customizable alarm notifications to serve as reminders for yoga practice, ensuring consistency and discipline in the yoga routine.
 - About Us Page: The About Us page displays the logo and provides information about the goals and main focus of the YogaLyze app.
 
+## Installation
+1. Clone this repository to your local machine.
+2. Open the project in Android Studio.
+3. Build and run the app on an Android device or emulator.
+
+## Requirements
+Android device running Android 5.0 (Lollipop) or above.
+Android Studio 4.0 or above.
+
+## Usage
+1. Launch the YogaLyze app on your Android device.
+2. Authenticate yourself by logging into your account or registering a new account if you don't have one.
+3. Select the desired exercise category and the specific pose you want to focus on.
+4. Grant necessary camera permissions when prompted.
+5. Position yourself in front of the camera and follow the on-screen instructions for each pose.
+6. The app will provide real-time feedback and scores for your yoga poses.
+7. View your workout history to track your progress and improvement over time.
+8. Optionally, you can store and manage your personal information securely within the app.
+9. Optionally, set customizable alarm notifications to remind yourself of yoga practice sessions.
+
