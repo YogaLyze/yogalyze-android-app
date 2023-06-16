@@ -1,21 +1,22 @@
-package com.bangkit.yogalyze
+package com.bangkit.yogalyze.ui.splash
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
+import com.bangkit.yogalyze.UserPreference
 
 
-class MainViewModel (private var pref: UserPreference) : ViewModel() {
+class SplashScreenViewModel (private var pref: UserPreference) : ViewModel() {
 
     fun getToken(): LiveData<String> {
         return pref.getToken().asLiveData()
     }
 
-    class MainViewModelFactory(private val pref : UserPreference) :
+    class SplashScreenViewModelFactory(private val pref : UserPreference) :
         ViewModelProvider.NewInstanceFactory(){
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return MainViewModel(pref) as T
+            return SplashScreenViewModel(pref) as T
         }
     }
 }

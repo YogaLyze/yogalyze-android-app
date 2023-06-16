@@ -1,22 +1,20 @@
 package com.bangkit.yogalyze.adapter
 
+import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.yogalyze.R
 import com.bangkit.yogalyze.adapter.YogaAdapter.*
 import com.bangkit.yogalyze.model.Yoga
+import com.bangkit.yogalyze.ui.yoga_detail.YogaDetailActivity
 
 class YogaAdapter(private var listYoga: ArrayList<Yoga>) : RecyclerView.Adapter<ListViewHolder>() {
-
-    private lateinit var onItemClickCallback: OnItemClickCallback
-
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
-    }
 
     fun submitList(newList: ArrayList<Yoga>) {
         listYoga = newList
@@ -40,7 +38,19 @@ class YogaAdapter(private var listYoga: ArrayList<Yoga>) : RecyclerView.Adapter<
         holder.image.setImageResource(yoga.image)
 
         holder.itemView.setOnClickListener {
-            onItemClickCallback.onItemClicked(listYoga[holder.adapterPosition])
+            val intent = Intent(holder.itemView.context, YogaDetailActivity::class.java)
+            intent.putExtra(YogaDetailActivity.EXTRA_NAME, yoga.name)
+            intent.putExtra(YogaDetailActivity.EXTRA_DURATION, yoga.duration)
+            intent.putExtra(YogaDetailActivity.EXTRA_IMAGE, yoga.image)
+            intent.putExtra(YogaDetailActivity.EXTRA_DESCRIPTION, yoga.description)
+            intent.putExtra(YogaDetailActivity.EXTRA_POSES, yoga.pose)
+
+            val options : ActivityOptionsCompat =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    holder.itemView.context as Activity
+                )
+
+            holder.itemView.context.startActivity(intent, options.toBundle())
         }
     }
 
@@ -49,10 +59,5 @@ class YogaAdapter(private var listYoga: ArrayList<Yoga>) : RecyclerView.Adapter<
         val tvDuration: TextView = itemView.findViewById(R.id.yogaDuration)
         val image : ImageView = itemView.findViewById(R.id.yogaImage)
     }
-
-    interface OnItemClickCallback {
-        fun onItemClicked(data: Yoga)
-    }
-
 }
 

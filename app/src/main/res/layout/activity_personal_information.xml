@@ -76,7 +76,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_light"
                     android:gravity="right"
-                    android:text="@string/user_name"
                     android:textColor="@color/font_black"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -111,7 +110,6 @@
                     android:layout_marginEnd="8dp"
                     android:fontFamily="@font/poppins_light"
                     android:gravity="right"
-                    android:text="@string/user_email"
                     android:textColor="@color/font_black"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -147,9 +145,10 @@
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/poppins_light"
                     android:gravity="right"
+                    android:text="0"
                     android:textColor="@color/font_black"
                     android:textSize="12sp"
-                    android:text="0"
+
                     android:visibility="visible" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -256,9 +255,9 @@
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/poppins_light"
                     android:gravity="right"
-                    android:text="0.0"
                     android:textColor="@color/font_black"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:text="0.0"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

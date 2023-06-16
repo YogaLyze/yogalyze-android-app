@@ -2,7 +2,6 @@ package com.bangkit.yogalyze.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import com.bangkit.yogalyze.adapter.YogaAdapter
 import com.bangkit.yogalyze.databinding.FragmentHomeBinding
 import com.bangkit.yogalyze.model.Yoga
 import com.bangkit.yogalyze.model.YogaData
-import com.bangkit.yogalyze.ui.yoga_detail.YogaDetailActivity
 import com.bangkit.yogalyze.ui.yogalyze_video.YogalyzeVideoActivity
 import com.google.firebase.auth.FirebaseAuth
 
@@ -70,23 +68,6 @@ class HomeFragment : Fragment() {
         binding.yogaRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.yogaRecyclerView.setHasFixedSize(true)
         binding.yogaRecyclerView.adapter = yogaAdapter
-        yogaAdapter.setOnItemClickCallback(object : YogaAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: Yoga) {
-                showSelectedYoga(data)
-            }
-        })
-    }
-
-    private fun showSelectedYoga(data: Yoga) {
-        val intent = Intent(requireContext(), YogaDetailActivity::class.java)
-        intent.putExtra(YogaDetailActivity.EXTRA_NAME, data.name)
-        intent.putExtra(YogaDetailActivity.EXTRA_DURATION, data.duration)
-        intent.putExtra(YogaDetailActivity.EXTRA_IMAGE, data.image)
-        intent.putExtra(YogaDetailActivity.EXTRA_DESCRIPTION, data.description)
-        intent.putExtra(YogaDetailActivity.EXTRA_POSES, data.pose)
-        startActivity(intent)
-
-        Log.d("yogaPose", data.pose.toString())
     }
 
     override fun onDestroyView() {

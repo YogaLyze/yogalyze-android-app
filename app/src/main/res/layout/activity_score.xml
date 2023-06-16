@@ -12,7 +12,7 @@
         android:layout_width="250dp"
         android:layout_height="400dp"
         android:foregroundGravity="center_vertical"
-        android:layout_marginStart="150dp"
+        android:layout_marginStart="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

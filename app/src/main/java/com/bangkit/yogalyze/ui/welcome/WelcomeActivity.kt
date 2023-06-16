@@ -1,5 +1,7 @@
 package com.bangkit.yogalyze.ui.welcome
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Build
@@ -23,9 +25,27 @@ class WelcomeActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
 
         setupView()
+        playAnimation()
 
         binding.loginButton.setOnClickListener(this)
         binding.registerButton.setOnClickListener(this)
+    }
+
+    private fun playAnimation() {
+        ObjectAnimator.ofFloat(binding.welcomeImage, View.TRANSLATION_X, -30f, 30f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+
+        val button = ObjectAnimator.ofFloat(binding.buttonToLoginRegister, View.ALPHA, 1f).setDuration(500)
+        val title = ObjectAnimator.ofFloat(binding.appName, View.ALPHA, 1f).setDuration(500)
+        val desc = ObjectAnimator.ofFloat(binding.appDesc, View.ALPHA, 1f).setDuration(500)
+
+        AnimatorSet().apply {
+            playSequentially(title, desc, button)
+            start()
+        }
     }
 
     private fun setupView() {

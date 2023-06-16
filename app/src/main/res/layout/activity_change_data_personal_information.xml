@@ -76,7 +76,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_light"
                     android:gravity="right"
-                    android:text="@string/user_name"
                     android:textColor="@color/font_black"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -111,7 +110,6 @@
                     android:layout_marginEnd="8dp"
                     android:fontFamily="@font/poppins_light"
                     android:gravity="right"
-                    android:text="@string/user_email"
                     android:textColor="@color/font_black"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -150,7 +148,7 @@
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/font_black"
                     android:gravity="right"
-                    android:hint="Choose your date of birth"/>
+                    android:hint="@string/choose_your_date_of_birth"/>
 
                 <ImageButton
                     android:id="@+id/datePickerButton"
@@ -200,7 +198,7 @@
                         android:id="@+id/radioButtonMale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Male"
+                        android:text="@string/male"
                         android:layout_marginEnd="4dp"
                         android:fontFamily="@font/poppins_light"
                         android:textSize="12sp"/>
@@ -209,23 +207,11 @@
                         android:id="@+id/radioButtonFemale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Female"
+                        android:text="@string/female"
                         android:fontFamily="@font/poppins_light"
                         android:textSize="12sp"/>
 
                 </RadioGroup>
-
-<!--                <EditText-->
-<!--                    android:id="@+id/gender"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginEnd="8dp"-->
-<!--                    android:background="@android:color/transparent"-->
-<!--                    android:fontFamily="@font/poppins_light"-->
-<!--                    android:gravity="right"-->
-<!--                    android:hint="@string/enter_gender"-->
-<!--                    android:textColor="@color/font_black"-->
-<!--                    android:textSize="12sp" />-->
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
