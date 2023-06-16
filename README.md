@@ -18,8 +18,8 @@ YogaLyze is an Android application developed as a Bangkit Capstone project. It i
 3. Build and run the app on an Android device or emulator.
 
 ## Requirements
-Android device running Android 5.0 (Lollipop) or above.
-Android Studio 4.0 or above.
+- Android device running Android 5.0 (Lollipop) or above.
+- Android Studio 4.0 or above.
 
 ## Usage
 1. Launch the YogaLyze app on your Android device.
