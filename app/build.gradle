@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.bangkit.yogalyze"
-        minSdk 24
+        minSdk 21
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -46,8 +46,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
     implementation 'androidx.camera:camera-view:1.3.0-alpha07'
     implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
     implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
